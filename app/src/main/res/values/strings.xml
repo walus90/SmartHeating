@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SmartHeating</string>
+    <string name="units">Show units</string>
+    <string name="configuration">Configuration</string>
+    <string name="statistics">Show statistics</string>
+    <string name="settings">Settings</string>
+    <string name="hotspot_switch_turn_on">Turn Hotspot On</string>
+    <string name="hotspot_switch_turn_off">Turn Hotspot Off</string>
+</resources>
