@@ -26,5 +26,8 @@ public class HeatingControlUnit {
     public HeatingControlUnit(String name){
         this.name = name;
     }
+    public int getId() {
+        return id;
+    }
 
 }

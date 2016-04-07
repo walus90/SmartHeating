@@ -49,13 +49,13 @@
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hotspot_switch_turn_off"
+        android:text="Hotsot"
         android:id="@+id/switchHotSpot"
         android:checked="true"
         android:clickable="true"
         android:enabled="true"
-        android:textOff="@string/hotspot_switch_turn_on"
-        android:textOn="@string/hotspot_switch_turn_off"
+        android:textOff="@string/hotspot_off"
+        android:textOn="@string/hotspot_on"
         android:showText="false"
         android:textSize="@dimen/abc_dialog_padding_top_material" />
 
