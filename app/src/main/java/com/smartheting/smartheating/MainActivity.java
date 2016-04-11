@@ -64,9 +64,19 @@ public class MainActivity extends AppCompatActivity {
         tvUnits.setOnClickListener(new TextView.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO probably there is better way of passing Context
                 Intent showIntent = new Intent(MainActivity.this, UnitsActivity.class);
                 MainActivity.this.startActivity(showIntent);
+            }
+        });
+
+        tvStatistics.setOnClickListener(new TextView.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LineGraph lineGraph = new LineGraph();
+                Intent i = lineGraph.getIntent(MainActivity.this);
+                startActivity(i);
+//                Intent statisitcsIntent = new Intent(MainActivity.this, StatisticsActivity.class);
+//                MainActivity.this.startActivity(statisitcsIntent);
             }
         });
 
