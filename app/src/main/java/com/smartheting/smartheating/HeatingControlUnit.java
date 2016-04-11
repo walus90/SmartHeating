@@ -14,9 +14,11 @@ public class HeatingControlUnit {
     public String getName() {
         return name;
     }
+    public void setName(String name) { this.name = name; };
 
+    // Custom name, editable by user, change to comment ?
     private String name;
-    // indicates if there are specific data for heating unit, maby only for Local
+    // indicates if there are specific data for heating unit, maybe only for Local
     private boolean advice;
     private boolean valveOpen;
     private int currentTemperature;
@@ -26,8 +28,6 @@ public class HeatingControlUnit {
     public HeatingControlUnit(String name){
         this.name = name;
     }
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
 
 }

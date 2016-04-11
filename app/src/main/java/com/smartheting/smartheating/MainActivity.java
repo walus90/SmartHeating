@@ -16,7 +16,7 @@ import wifihotspotutils.WifiApManager;
 
 public class MainActivity extends AppCompatActivity {
 
-    static ArrayList<HeatingControlUnit> unitsList = new ArrayList<HeatingControlUnit>();
+    public static ArrayList<HeatingControlUnit> unitsList = new ArrayList<HeatingControlUnit>();
     //sample unit for tests
     public HeatingControlUnit sampleUnit = new HeatingControlUnit("sample");
 

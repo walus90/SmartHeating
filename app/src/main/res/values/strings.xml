@@ -6,4 +6,6 @@
     <string name="settings">Settings</string>
     <string name="hotspot_off">Off</string>
     <string name="hotspot_on">On</string>
+    <string name="detail_id">Id:</string>
+    <string name="detail_name">Name:</string>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.DataSetObserver;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -11,11 +12,14 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class UnitsActivity extends AppCompatActivity {
 
+    static String UNIT_ID = "unit id";
+    static String UNIT_NAME = "unit name";
     private ListView unitsLv;
 
     @Override
@@ -30,17 +34,18 @@ public class UnitsActivity extends AppCompatActivity {
         ListAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.unit_overview, l);
         unitsLv.setAdapter(listAdapter);
 
-        unitsLv.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        unitsLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //open activity with detailed data
+                //TextView tv = (TextView) unitsLv.getItemAtPosition(position);
+                String tv = (String) unitsLv.getItemAtPosition(position);
+
                 Intent i = new Intent(UnitsActivity.this, UnitDetailActivity.class);
-                // TODO I have to pass parameters different than in class constructor
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+                // better to pass int or string ?
+                i.putExtra(UNIT_ID, Integer.toString(MainActivity.unitsList.get(position).getId()));
+                i.putExtra(UNIT_NAME, MainActivity.unitsList.get(position).getName());
+                startActivity(i);
             }
         });
     }
