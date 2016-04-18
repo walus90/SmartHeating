@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     public HeatingControlUnit sampleUnit = new HeatingControlUnit("sample");
 
     private WifiApManager wifiApManager;
+    // to turn WiFi on if it was enabled before launching application
+    private boolean formerWifiState;
 
     private TextView tvUnits;
     private TextView tvConfiguration;
@@ -33,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        wifiApManager = new WifiApManager(this);
-        wifiApManager.setWifiApEnabled(wifiApManager.getWifiApConfiguration(), true);
 
         unitsList.add(sampleUnit);
         unitsList.add(new HeatingControlUnit("ejemplo"));
@@ -44,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
         tvSettings = (TextView)findViewById(R.id.settingsTv);
         sHotSpot = (Switch)findViewById(R.id.switchHotSpot);
 
-
+        wifiApManager = new WifiApManager(this);
+        wifiApManager.setWifiApEnabled(wifiApManager.getWifiApConfiguration(), true);
+        formerWifiState = wifiApManager.getWifiManager().isWifiEnabled();
 
         sHotSpot.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -79,8 +81,18 @@ public class MainActivity extends AppCompatActivity {
 //                MainActivity.this.startActivity(statisitcsIntent);
             }
         });
-
     }
 
+    // think how to solve it
+//    @Override
+//    protected void onStop(){
+//        super.onStop();
+//        Log.i("MainActivity", "Accesing Stop");
+//        // TODO create option to let user decide what to do. Now turn WiFi on if was before
+//        if(formerWifiState){
+//            this.wifiApManager.getWifiManager().setWifiEnabled(true);
+//            Toast.makeText(MainActivity.this, "Accesssing MainActivity.onPause", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
 }

@@ -30,6 +30,10 @@ import android.os.Handler;
 import android.util.Log;
 
 public class WifiApManager {
+	public WifiManager getWifiManager() {
+		return mWifiManager;
+	}
+
 	private final WifiManager mWifiManager;
 	private Context context;
 
