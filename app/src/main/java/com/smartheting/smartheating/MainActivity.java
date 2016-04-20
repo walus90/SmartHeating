@@ -10,10 +10,14 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.EActivity;
+
 import java.util.ArrayList;
 
 import wifihotspotutils.WifiApManager;
 
+@EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
 
     public static ArrayList<HeatingControlUnit> unitsList = new ArrayList<HeatingControlUnit>();
@@ -29,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvStatistics;
     private TextView tvSettings;
     private Switch sHotSpot;
+    @ViewById
+    android.widget.Button annotatoinCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
