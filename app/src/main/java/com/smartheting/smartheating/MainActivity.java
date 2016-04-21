@@ -10,6 +10,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.EActivity;
 
@@ -28,11 +29,16 @@ public class MainActivity extends AppCompatActivity {
     // to turn WiFi on if it was enabled before launching application
     private boolean formerWifiState;
 
-    private TextView tvUnits;
-    private TextView tvConfiguration;
-    private TextView tvStatistics;
-    private TextView tvSettings;
-    private Switch sHotSpot;
+    @ViewById(R.id.unitTv)
+    TextView tvUnits;
+    @ViewById(R.id.configurationTv)
+    TextView tvConfiguration;
+    @ViewById(R.id.statisticTv)
+    TextView tvStatistics;
+    @ViewById(R.id.settingsTv)
+    TextView tvSettings;
+    @ViewById(R.id.switchHotSpot)
+    Switch sHotSpot;
     @ViewById
     android.widget.Button annotatoinCheck;
 
@@ -41,14 +47,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         unitsList.add(sampleUnit);
         unitsList.add(new HeatingControlUnit("ejemplo"));
-        tvUnits = (TextView)findViewById(R.id.unitTv);
-        tvConfiguration = (TextView)findViewById(R.id.configurationTv);
-        tvStatistics = (TextView)findViewById(R.id.statisticTv);
-        tvSettings = (TextView)findViewById(R.id.settingsTv);
-        sHotSpot = (Switch)findViewById(R.id.switchHotSpot);
 
         wifiApManager = new WifiApManager(this);
         wifiApManager.setWifiApEnabled(wifiApManager.getWifiApConfiguration(), true);
@@ -69,13 +69,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        tvUnits.setOnClickListener(new TextView.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent showIntent = new Intent(MainActivity.this, UnitsActivity.class);
-                MainActivity.this.startActivity(showIntent);
-            }
-        });
+        // does not work with annotations
+//        tvUnits.setOnClickListener(new TextView.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent showIntent = new Intent(MainActivity.this, UnitsActivity.class);
+//                MainActivity.this.startActivity(showIntent);
+//            }
+//        });
 
         tvStatistics.setOnClickListener(new TextView.OnClickListener() {
             @Override
@@ -89,16 +90,29 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // think how to solve it
-//    @Override
-//    protected void onStop(){
-//        super.onStop();
-//        Log.i("MainActivity", "Accesing Stop");
-//        // TODO create option to let user decide what to do. Now turn WiFi on if was before
-//        if(formerWifiState){
-//            this.wifiApManager.getWifiManager().setWifiEnabled(true);
-//            Toast.makeText(MainActivity.this, "Accesssing MainActivity.onPause", Toast.LENGTH_SHORT).show();
-//        }
-//    }
+    @Click(R.id.unitTv)
+    public void unitActiv(View v){
+        Intent showIntent = new Intent(MainActivity.this, UnitsActivity.class);
+        MainActivity.this.startActivity(showIntent);
+    }
+    @Click
+    void annotatoinCheck(){
+        Toast.makeText(this, "Entering annotations check", Toast.LENGTH_SHORT).show();
+    }
+
+
+/*
+turning WiFi back, think how to solve it
+@Override
+protected void onStop(){
+super.onStop();
+Log.i("MainActivity", "Accesing Stop");
+// TODO create option to let user decide what to do. Now turn WiFi on if was before
+if(formerWifiState){
+this.wifiApManager.getWifiManager().setWifiEnabled(true);
+Toast.makeText(MainActivity.this, "Accesssing MainActivity.onPause", Toast.LENGTH_SHORT).show();
+}
+}
+*/
 
 }

@@ -21,7 +21,7 @@
         </activity>E:\AndroidStudioProjects\SmartHeating\app\libs\achartengine-1.2.0.jar!\org\achartengine
         <activity android:name=".UnitsActivity" />
         <activity android:name=".UnitDetailActivity" />
-        <activity android:name=".StatisticsActivity"></activity>
+        <activity android:name=".StatisticsActivity_"></activity>
         <activity android:name="org.achartengine.GraphicalActivity" />
     </application>
 
