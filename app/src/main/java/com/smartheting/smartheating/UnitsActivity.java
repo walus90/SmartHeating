@@ -14,8 +14,11 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.androidannotations.annotations.EActivity;
+
 import java.util.ArrayList;
 
+@EActivity
 public class UnitsActivity extends AppCompatActivity {
 
     static String UNIT_ID = "unit id";
@@ -41,7 +44,7 @@ public class UnitsActivity extends AppCompatActivity {
                 //TextView tv = (TextView) unitsLv.getItemAtPosition(position);
                 String tv = (String) unitsLv.getItemAtPosition(position);
 
-                Intent i = new Intent(UnitsActivity.this, UnitDetailActivity.class);
+                Intent i = new Intent(UnitsActivity.this, UnitDetailActivity_.class);
                 // better to pass int or string ?
                 i.putExtra(UNIT_ID, Integer.toString(MainActivity.unitsList.get(position).getId()));
                 i.putExtra(UNIT_NAME, MainActivity.unitsList.get(position).getName());

@@ -9,6 +9,7 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.ViewById;
@@ -38,9 +39,7 @@ public class MainActivity extends AppCompatActivity {
     @ViewById(R.id.settingsTv)
     TextView tvSettings;
     @ViewById(R.id.switchHotSpot)
-    Switch sHotSpot;
-    @ViewById
-    android.widget.Button annotatoinCheck;
+    ToggleButton sHotSpot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,12 +91,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Click(R.id.unitTv)
     public void unitActiv(View v){
-        Intent showIntent = new Intent(MainActivity.this, UnitsActivity.class);
+        Intent showIntent = new Intent(MainActivity.this, UnitsActivity_.class);
         MainActivity.this.startActivity(showIntent);
-    }
-    @Click
-    void annotatoinCheck(){
-        Toast.makeText(this, "Entering annotations check", Toast.LENGTH_SHORT).show();
     }
 
 

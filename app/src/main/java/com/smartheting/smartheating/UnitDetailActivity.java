@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import org.androidannotations.annotations.EActivity;
+
+@EActivity
 public class UnitDetailActivity extends AppCompatActivity {
 
     private String unitId;
