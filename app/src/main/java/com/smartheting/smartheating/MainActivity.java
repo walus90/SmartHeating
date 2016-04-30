@@ -16,6 +16,7 @@ import org.androidannotations.annotations.EActivity;
 
 import java.util.ArrayList;
 
+import heating.control.HeatingControlUnit;
 import wifihotspotutils.WifiApManager;
 
 @EActivity(R.layout.activity_main)

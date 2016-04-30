@@ -1,23 +1,18 @@
-package com.smartheting.smartheating;
+package heating.control;
+
+import module.control.ControlUnit;
 
 /**
  * Created by Wojtek on 2016-04-04.
  */
 
 // TODO create children: CentralUnit and LocalUnit
-public class HeatingControlUnit {
-    private static int maxId=0;
-
-    //unchanged id of unit, might be based on real hardware
-    private int id;
-
+public class HeatingControlUnit extends ControlUnit{
     public String getName() {
         return name;
     }
     public void setName(String name) { this.name = name; };
 
-    // Custom name, editable by user, change to comment ?
-    private String name;
     // indicates if there are specific data for heating unit, maybe only for Local
     private boolean advice;
     private boolean valveOpen;

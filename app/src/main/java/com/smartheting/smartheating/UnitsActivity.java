@@ -1,22 +1,19 @@
 package com.smartheting.smartheating;
 
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import org.androidannotations.annotations.EActivity;
 
 import java.util.ArrayList;
+
+import heating.control.HeatingControlUnit;
 
 @EActivity
 public class UnitsActivity extends AppCompatActivity {
