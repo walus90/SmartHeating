@@ -8,12 +8,36 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/detail_id"
-        android:id="@+id/tvId" />
+        android:id="@+id/labelId" />
+
+    <EditText
+        android:background="@android:color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/etId"
+        android:text="sample id" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/detail_name"
-        android:id="@+id/tvName" />
+        android:id="@+id/labelName" />
+
+    <EditText
+        android:background="@android:color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/etName"
+        android:editable="true"
+        android:text="sample name" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:id="@+id/bSave"
+        android:visibility="invisible" />
 </LinearLayout>

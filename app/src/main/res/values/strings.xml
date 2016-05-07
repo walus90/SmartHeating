@@ -8,4 +8,6 @@
     <string name="hotspot_on">On</string>
     <string name="detail_id">Id:</string>
     <string name="detail_name">Name:</string>
+    <string name="edit">Edit properties</string>
+    <string name="save">Save</string>
 </resources>

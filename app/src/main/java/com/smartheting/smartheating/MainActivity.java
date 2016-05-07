@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         unitsList.add(sampleUnit);
         unitsList.add(new HeatingControlUnit("ejemplo"));
+        Log.i(this.toString(), "units added to unitsList");
 
         wifiApManager = new WifiApManager(this);
         wifiApManager.setWifiApEnabled(wifiApManager.getWifiApConfiguration(), true);

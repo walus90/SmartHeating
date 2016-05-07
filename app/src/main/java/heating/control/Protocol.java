@@ -1,4 +1,4 @@
-package com.smartheting.smartheating;
+package heating.control;
 import java.net.InetSocketAddress;
 
 /**

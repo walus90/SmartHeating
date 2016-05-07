@@ -55,7 +55,6 @@
         android:enabled="true"
         android:textOff="@string/hotspot_off"
         android:textOn="@string/hotspot_on"
-        android:showText="false"
-        android:textSize="@dimen/abc_dialog_padding_top_material" />
+        android:showText="false" />
 
 </LinearLayout>
