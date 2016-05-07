@@ -18,11 +18,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>E:\AndroidStudioProjects\SmartHeating\app\src\main\java\com\smartheting\smartheating\HeatingControlUnit.java
-        </activity>E:\AndroidStudioProjects\SmartHeating\app\libs\achartengine-1.2.0.jar!\org\achartengine
+        </activity>
         <activity android:name=".UnitsActivity_" />
         <activity android:name=".UnitDetailActivity_" />
         <activity android:name=".StatisticsActivity_"></activity>
-        <activity android:name="org.achartengine.GraphicalActivity" />
     </application>
 
 </manifest>
