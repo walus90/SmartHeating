@@ -12,6 +12,7 @@ import org.achartengine.renderer.XYSeriesRenderer;
 /**
  * Created by Wojtek on 2016-04-11.
  */
+
 public class LineGraph {
 
 }

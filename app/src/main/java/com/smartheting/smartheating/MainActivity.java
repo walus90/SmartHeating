@@ -81,9 +81,18 @@ public class MainActivity extends AppCompatActivity {
         tvStatistics.setOnClickListener(new TextView.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(MainActivity.this, "Statistic", Toast.LENGTH_SHORT).show();
+                Intent statisticIntent = new Intent(MainActivity.this, StatisticsActivity_.class);
+                MainActivity.this.startActivity(statisticIntent);
             }
         });
+    }
+
+    @Click(R.id.statisticTv)
+    public void statisticActiv(View v){
+        Toast.makeText(MainActivity.this, "Statistic", Toast.LENGTH_SHORT).show();
+        Intent statisticIntent = new Intent(MainActivity.this, StatisticsActivity_.class);
+        MainActivity.this.startActivity(statisticIntent);
     }
 
     @Click(R.id.unitTv)
