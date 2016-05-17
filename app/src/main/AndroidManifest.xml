@@ -17,11 +17,19 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>E:\AndroidStudioProjects\SmartHeating\app\src\main\java\com\smartheting\smartheating\HeatingControlUnit.java
+            </intent-filter>
+            E:\AndroidStudioProjects\SmartHeating\app\src\main\java\com\smartheting\smartheating\HeatingControlUnit.java
         </activity>
         <activity android:name=".UnitsActivity_" />
         <activity android:name=".UnitDetailActivity_" />
-        <activity android:name=".StatisticsActivity_"></activity>
+        <activity android:name=".StatisticsActivity_" />
+        <activity android:name=".SettingsActivity_">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

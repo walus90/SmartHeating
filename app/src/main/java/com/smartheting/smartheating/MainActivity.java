@@ -17,6 +17,7 @@ import org.androidannotations.annotations.EActivity;
 import java.util.ArrayList;
 
 import heating.control.HeatingControlUnit;
+import heating.control.HeatingSystemConnector;
 import wifihotspotutils.WifiApManager;
 
 @EActivity(R.layout.activity_main)
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<HeatingControlUnit> unitsList = new ArrayList<HeatingControlUnit>();
     //sample unit for tests
     public HeatingControlUnit sampleUnit = new HeatingControlUnit("sample");
+
 
     private WifiApManager wifiApManager;
     // to turn WiFi on if it was enabled before launching application
@@ -93,6 +95,13 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, "Statistic", Toast.LENGTH_SHORT).show();
         Intent statisticIntent = new Intent(MainActivity.this, StatisticsActivity_.class);
         MainActivity.this.startActivity(statisticIntent);
+    }
+
+    @Click(R.id.settingsTv)
+    public void settingsActiv(View v){
+        Toast.makeText(MainActivity.this, "Setitngs", Toast.LENGTH_SHORT).show();
+        Intent settingsIntent = new Intent(this, SettingsActivity_.class);
+        startActivity(settingsIntent);
     }
 
     @Click(R.id.unitTv)

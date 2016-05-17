@@ -3,6 +3,9 @@ package heating.control;
 import android.content.Context;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
+import android.widget.Toast;
+
+import org.androidannotations.annotations.Background;
 
 import java.util.List;
 
@@ -17,8 +20,8 @@ import module.control.ConnectionEstablisher;
 public class HeatingSystemConnector implements ConnectionEstablisher {
 
     // need to be set up at first run, also possible to change them
-    String networkSSID = "test";
-    String networkPass = "pass";
+    String networkSSID = "Waliszek";
+    String networkPass = "94laskowicka111";
     //looks like I have to add context
     Context context;
 
@@ -48,7 +51,7 @@ public class HeatingSystemConnector implements ConnectionEstablisher {
                 wifiManager.disconnect();
                 wifiManager.enableNetwork(i.networkId, true);
                 wifiManager.reconnect();
-
+                Toast.makeText(this.context, "connected to " + networkSSID, Toast.LENGTH_SHORT).show();
                 break;
             }
         }
