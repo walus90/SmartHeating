@@ -17,30 +17,29 @@ import org.androidannotations.annotations.EActivity;
 import java.util.ArrayList;
 
 import heating.control.HeatingControlUnit;
-import heating.control.HeatingSystemConnector;
 import wifihotspotutils.WifiApManager;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
 
-    public static ArrayList<HeatingControlUnit> unitsList = new ArrayList<HeatingControlUnit>();
+    public static ArrayList<HeatingControlUnit> sUnitsList = new ArrayList<HeatingControlUnit>();
     //sample unit for tests
     public HeatingControlUnit sampleUnit = new HeatingControlUnit("sample");
 
 
     private WifiApManager wifiApManager;
     // to turn WiFi on if it was enabled before launching application
-    private boolean formerWifiState;
+    private boolean mFormerWifiState;
 
-    @ViewById(R.id.unitTv)
+    @ViewById(R.id.tvUnit)
     TextView tvUnits;
-    @ViewById(R.id.configurationTv)
+    @ViewById(R.id.tvConfiguration)
     TextView tvConfiguration;
-    @ViewById(R.id.statisticTv)
+    @ViewById(R.id.tvStatistic)
     TextView tvStatistics;
-    @ViewById(R.id.settingsTv)
+    @ViewById(R.id.tvSettings)
     TextView tvSettings;
-    @ViewById(R.id.switchHotSpot)
+    @ViewById(R.id.tbHotSpot)
     ToggleButton sHotSpot;
 
     @Override
@@ -48,13 +47,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        unitsList.add(sampleUnit);
-        unitsList.add(new HeatingControlUnit("ejemplo"));
-        Log.i(this.toString(), "units added to unitsList");
+        sUnitsList.add(sampleUnit);
+        sUnitsList.add(new HeatingControlUnit("ejemplo"));
+        Log.i(this.toString(), "units added to sUnitsList");
 
         wifiApManager = new WifiApManager(this);
         wifiApManager.setWifiApEnabled(wifiApManager.getWifiApConfiguration(), true);
-        formerWifiState = wifiApManager.getWifiManager().isWifiEnabled();
+        mFormerWifiState = wifiApManager.getWifiManager().isWifiEnabled();
 
         sHotSpot.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -118,7 +117,7 @@ protected void onStop(){
 super.onStop();
 Log.i("MainActivity", "Accesing Stop");
 // TODO create option to let user decide what to do. Now turn WiFi on if was before
-if(formerWifiState){
+if(mFormerWifiState){
 this.wifiApManager.getWifiManager().setWifiEnabled(true);
 Toast.makeText(MainActivity.this, "Accesssing MainActivity.onPause", Toast.LENGTH_SHORT).show();
 }

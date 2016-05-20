@@ -7,17 +7,17 @@ import java.net.InetSocketAddress;
 public class Protocol {
     class Header{
         // type of fields are not sure
-        private int key;
-        private int cmd;
-        private int pw;
-        private int dataSize;
-        private boolean parity;
+        private int mKey;
+        private int mCmd;
+        private int mPw;
+        private int mDataSize;
+        private boolean mParity;
     }
     class Command{
-        private int _cmd;
-        private int _dataSize;
-        private InetSocketAddress sourceSocket;
-        private InetSocketAddress destinationSocket;
+        private int mCmd;
+        private int mDataSize;
+        private InetSocketAddress mSurceSocket;
+        private InetSocketAddress mDestinationSocket;
 
     }
 }

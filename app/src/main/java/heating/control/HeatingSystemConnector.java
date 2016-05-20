@@ -21,15 +21,15 @@ import module.control.ConnectionEstablisher;
 public class HeatingSystemConnector implements ConnectionEstablisher {
 
     // need to be set up at first run, also possible to change them
-    String networkSSID = "Waliszek";
-    String networkPass = "94laskowicka111";
+    String mNtworkSSID = "Waliszek";
+    String mNetworkPass = "94laskowicka111";
     //looks like I have to add context
-    Context context;
+    Context mContext;
 
     public HeatingSystemConnector(Context context) {
-        //this.networkSSID = networkSSID;
-        //this.networkPass = networkPass;
-        this.context = context;
+        //this.mNtworkSSID = mNtworkSSID;
+        //this.mNetworkPass = mNetworkPass;
+        this.mContext = context;
     }
 
     @Override
@@ -40,24 +40,24 @@ public class HeatingSystemConnector implements ConnectionEstablisher {
     @Background
     public void connectToWifi(){
         WifiConfiguration conf = new WifiConfiguration();
-        conf.SSID = "\"" + networkSSID + "\"";
+        conf.SSID = "\"" + mNtworkSSID + "\"";
         //I assume WPE connection
-        conf.wepKeys[0] = "\"" + networkPass + "\"";
+        conf.wepKeys[0] = "\"" + mNetworkPass + "\"";
         conf.wepTxKeyIndex = 0;
         //not sure about passwords
         conf.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
         conf.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);
 
-        WifiManager wifiManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
+        WifiManager wifiManager = (WifiManager)mContext.getSystemService(Context.WIFI_SERVICE);
         wifiManager.addNetwork(conf);
 
         List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
         for( WifiConfiguration i : list ) {
-            if(i.SSID != null && i.SSID.equals("\"" + networkSSID + "\"")) {
+            if(i.SSID != null && i.SSID.equals("\"" + mNtworkSSID + "\"")) {
                 wifiManager.disconnect();
                 wifiManager.enableNetwork(i.networkId, true);
                 wifiManager.reconnect();
-                Toast.makeText(this.context, "connected to " + networkSSID, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.mContext, "connected to " + mNtworkSSID, Toast.LENGTH_SHORT).show();
                 break;
             }
         }

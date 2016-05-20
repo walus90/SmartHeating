@@ -18,8 +18,8 @@ public class ConnectionHandler {
     @Bean
     HeatingSystemConnector heatingSystemConnector;
 
-    private Protocol protocol;
-    private Socket socket;
+    private Protocol mProtocol;
+    private Socket mSocket;
     private static final int SERVERPORT = 5000;
     private static final String SERVER_IP = "10.0.2.2";
 
@@ -28,7 +28,7 @@ public class ConnectionHandler {
     public void sendProtocol(Protocol p){
         try{
             InetAddress intendtAddress = InetAddress.getByName(SERVER_IP);
-            socket = new Socket(intendtAddress, SERVERPORT);
+            mSocket = new Socket(intendtAddress, SERVERPORT);
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {

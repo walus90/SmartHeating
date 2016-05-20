@@ -13,9 +13,9 @@ import org.androidannotations.annotations.ViewById;
 @EActivity
 public class UnitDetailActivity extends AppCompatActivity {
 
-    private String unitId;
-    private String unitName;
-    private boolean edition;
+    private String mUnitId;
+    private String mUnitName;
+    private boolean mEdition;
 
     @ViewById(R.id.etId)
     TextView etId;
@@ -27,13 +27,13 @@ public class UnitDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.unit_detail);
+        setContentView(R.layout.activity_unit_detail);
         Intent i = getIntent();
-        unitId = i.getStringExtra(UnitsActivity.UNIT_ID);
-        unitName = i.getStringExtra(UnitsActivity.UNIT_NAME);
-        etId.setText(unitId);
-        etName.setText(unitName);
-        setForEdition(edition);
+        mUnitId = i.getStringExtra(UnitsActivity.UNIT_ID);
+        mUnitName = i.getStringExtra(UnitsActivity.UNIT_NAME);
+        etId.setText(mUnitId);
+        etName.setText(mUnitName);
+        setForEdition(mEdition);
     }
 
     private void setForEdition(boolean toEdit){

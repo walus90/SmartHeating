@@ -7,20 +7,20 @@ import module.control.BaseUnit;
  */
 
 public class HeatingControlUnit extends BaseUnit {
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; };
+    public String getName() { return mName; }
+    public void setName(String name) { this.mName = name; };
 
     // indicates if there are specific data for heating unit, maybe only for Local
-    private boolean advice;
-    private boolean valveOpen;
-    private int currentTemperature;
-    private int targetTemperature;
-    private int environmentTemperature;
+    private boolean mAdvice;
+    private boolean mValveOpen;
+    private int mCurrentTemperature;
+    private int mTargetTemperature;
+    private int mEnvironmentTemperature;
 
     public HeatingControlUnit(String name){
-        this.name = name;
+        this.mName = name;
     }
-    public int getId() { return id; }
+    public int getId() { return mId; }
 
     @Override
     public void sendData() {

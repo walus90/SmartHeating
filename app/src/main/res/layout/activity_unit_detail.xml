@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/detail_id"
-        android:id="@+id/labelId" />
+        android:id="@+id/lId" />
 
     <EditText
         android:background="@android:color/transparent"
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/detail_name"
-        android:id="@+id/labelName" />
+        android:id="@+id/lName" />
 
     <EditText
         android:background="@android:color/transparent"

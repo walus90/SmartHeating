@@ -5,9 +5,9 @@ package module.control;
  * Base class for all units used in system, control and measure units
  */
 public abstract class BaseUnit {
-    private static int maxId=0;
-    //unchanged id of unit
-    protected int id;
-    protected String name;
+    private static int sMaxId =0;
+    //unchanged mId of unit
+    protected int mId;
+    protected String mName;
     public abstract void sendData();
 }

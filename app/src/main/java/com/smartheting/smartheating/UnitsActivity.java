@@ -2,7 +2,6 @@ package com.smartheting.smartheating;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -13,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import org.androidannotations.annotations.EActivity;
 
@@ -24,36 +22,36 @@ import heating.control.HeatingControlUnit;
 @EActivity
 public class UnitsActivity extends Activity {
 
-    static String UNIT_ID = "unit id";
-    static String UNIT_NAME = "unit name";
+    static String UNIT_ID = "unit mId";
+    static String UNIT_NAME = "unit mName";
     static String EDITABLE = "editable";
-    private ListView unitsLv;
+    private ListView mUnitsLv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_units);
-        unitsLv = (ListView)findViewById(R.id.unitsListView);
+        mUnitsLv = (ListView)findViewById(R.id.lvUnits);
         ArrayList<String> l = new ArrayList<String>();
-        //ListAdapter listAdapter = new ArrayAdapter<HeatingControlUnit>(MainActivity.unitsList);
-        for(HeatingControlUnit u : MainActivity.unitsList) {
+        //ListAdapter listAdapter = new ArrayAdapter<HeatingControlUnit>(MainActivity.sUnitsList);
+        for(HeatingControlUnit u : MainActivity.sUnitsList) {
             l.add(u.getName());
         }
-        ListAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.unit_overview, l);
-        unitsLv.setAdapter(listAdapter);
-        registerForContextMenu(unitsLv);
+        ListAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.activity_unit_overview, l);
+        mUnitsLv.setAdapter(listAdapter);
+        registerForContextMenu(mUnitsLv);
 
-        unitsLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mUnitsLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //open activity with detailed data
-                //TextView tv = (TextView) unitsLv.getItemAtPosition(position);
-                String tv = (String) unitsLv.getItemAtPosition(position);
+                //TextView tv = (TextView) mUnitsLv.getItemAtPosition(position);
+                String tv = (String) mUnitsLv.getItemAtPosition(position);
 
                 Intent i = new Intent(UnitsActivity.this, UnitDetailActivity_.class);
                 // better to pass int or string ?
-                i.putExtra(UNIT_ID, Integer.toString(MainActivity.unitsList.get(position).getId()));
-                i.putExtra(UNIT_NAME, MainActivity.unitsList.get(position).getName());
+                i.putExtra(UNIT_ID, Integer.toString(MainActivity.sUnitsList.get(position).getId()));
+                i.putExtra(UNIT_NAME, MainActivity.sUnitsList.get(position).getName());
                 startActivity(i);
             }
         });
@@ -65,7 +63,7 @@ public class UnitsActivity extends Activity {
         Log.i("onCreateContextMenu", "Entered");
         super.onCreateContextMenu(menu, v, menuInfo);
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        String unitName = (String) unitsLv.getAdapter().getItem(info.position);
+        String unitName = (String) mUnitsLv.getAdapter().getItem(info.position);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.unit_context, menu);
         menu.setHeaderTitle(unitName);
@@ -78,8 +76,8 @@ public class UnitsActivity extends Activity {
                 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
                 int position = info.position;
                 Intent i = new Intent(UnitsActivity.this, UnitDetailActivity_.class);
-                i.putExtra(UNIT_ID, Integer.toString(MainActivity.unitsList.get(position).getId()));
-                i.putExtra(UNIT_NAME, MainActivity.unitsList.get(position).getName());
+                i.putExtra(UNIT_ID, Integer.toString(MainActivity.sUnitsList.get(position).getId()));
+                i.putExtra(UNIT_NAME, MainActivity.sUnitsList.get(position).getName());
                 i.putExtra(EDITABLE, true);
                 startActivity(i);
             default:
