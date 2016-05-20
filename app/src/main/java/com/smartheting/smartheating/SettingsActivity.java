@@ -25,7 +25,8 @@ public class SettingsActivity extends AppCompatActivity {
     @Click(R.id.bConnect)
     public void connectToWifi(View v){
         // need to think about how to implement
-        HeatingSystemConnector connector = new HeatingSystemConnector("Waliszek", "94laskowicka111",this);
+        //HeatingSystemConnector connector = new HeatingSystemConnector("Waliszek", "94laskowicka111",this);
+        HeatingSystemConnector connector = new HeatingSystemConnector(this);
         connector.establishConnection();
     }
 }

@@ -6,6 +6,7 @@ import android.net.wifi.WifiManager;
 import android.widget.Toast;
 
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.EBean;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import module.control.ConnectionEstablisher;
  * I change former assumptions, I will connect to existing WiFi network
  */
 
-
+@EBean
 public class HeatingSystemConnector implements ConnectionEstablisher {
 
     // need to be set up at first run, also possible to change them
@@ -25,14 +26,19 @@ public class HeatingSystemConnector implements ConnectionEstablisher {
     //looks like I have to add context
     Context context;
 
-    public HeatingSystemConnector(String networkSSID, String networkPass, Context context) {
-        this.networkSSID = networkSSID;
-        this.networkPass = networkPass;
+    public HeatingSystemConnector(Context context) {
+        //this.networkSSID = networkSSID;
+        //this.networkPass = networkPass;
         this.context = context;
     }
 
     @Override
     public void establishConnection() {
+        connectToWifi();
+    }
+
+    @Background
+    public void connectToWifi(){
         WifiConfiguration conf = new WifiConfiguration();
         conf.SSID = "\"" + networkSSID + "\"";
         //I assume WPE connection
@@ -55,6 +61,5 @@ public class HeatingSystemConnector implements ConnectionEstablisher {
                 break;
             }
         }
-
     }
 }

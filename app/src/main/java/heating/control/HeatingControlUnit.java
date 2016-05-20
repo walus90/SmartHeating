@@ -6,7 +6,6 @@ import module.control.BaseUnit;
  * Created by Wojtek on 2016-04-04.
  */
 
-// TODO create children: CentralUnit and LocalUnit
 public class HeatingControlUnit extends BaseUnit {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; };
