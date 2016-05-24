@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:text="Hotsot"
         android:id="@+id/tbHotSpot"
-        android:checked="true"
+        android:checked="false"
         android:clickable="true"
         android:enabled="true"
         android:textOff="@string/hotspot_off"

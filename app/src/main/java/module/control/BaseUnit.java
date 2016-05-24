@@ -9,5 +9,4 @@ public abstract class BaseUnit {
     //unchanged mId of unit
     protected int mId;
     protected String mName;
-    public abstract void sendData();
 }

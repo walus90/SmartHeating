@@ -22,8 +22,4 @@ public class HeatingControlUnit extends BaseUnit {
     }
     public int getId() { return mId; }
 
-    @Override
-    public void sendData() {
-
-    }
 }
