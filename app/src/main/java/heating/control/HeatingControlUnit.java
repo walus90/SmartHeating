@@ -18,6 +18,7 @@ public class HeatingControlUnit extends BaseUnit {
     private int mEnvironmentTemperature;
 
     public HeatingControlUnit(String name){
+        this.mId = BaseUnit.sMaxId++;
         this.mName = name;
     }
     public int getId() { return mId; }

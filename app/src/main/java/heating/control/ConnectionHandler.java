@@ -8,6 +8,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import module.control.DataHandler;
+
 /**
  * Created by Wojtek on 2016-05-17.
  */
@@ -15,8 +17,8 @@ import java.net.UnknownHostException;
 @EBean
 public class ConnectionHandler {
 
-    @Bean
-    HeatingSystemConnector heatingSystemConnector;
+    @Bean(HeatingDataHandler.class)
+    HeatingDataHandler heatingDataHandler;
 
     private Protocol mProtocol;
     private Socket mSocket;
