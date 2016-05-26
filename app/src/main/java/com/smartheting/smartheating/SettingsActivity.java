@@ -28,4 +28,9 @@ public class SettingsActivity extends AppCompatActivity {
         HeatingSystemConnector connector = new HeatingSystemConnector(this);
         connector.establishConnection();
     }
+
+    @Click
+    public void bSendHello(View v){
+
+    }
 }

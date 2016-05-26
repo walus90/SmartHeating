@@ -23,7 +23,6 @@ public class HeatingSystemConnector implements ConnectionEstablisher {
     // need to be set up at first run, also possible to change them
     String mNtworkSSID = "Waliszek";
     String mNetworkPass = "94laskowicka111";
-    //looks like I have to add context
     Context mContext;
 
     public HeatingSystemConnector(Context context) {

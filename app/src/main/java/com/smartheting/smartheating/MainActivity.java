@@ -18,13 +18,17 @@ import java.util.ArrayList;
 
 import heating.control.ConnectionHandler;
 import heating.control.HeatingControlUnit;
+import heating.control.HeatingSystemConnector;
 import wifihotspotutils.WifiApManager;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
 
     public static ArrayList<HeatingControlUnit> sUnitsList = new ArrayList<HeatingControlUnit>();
-    //public static ConnectionHandler sWifiConnectionHandler = new ConnectionHandler();
+    public static ConnectionHandler sWifiConnectionHandler = new ConnectionHandler();
+    //need to think how to use context
+    //public static HeatingSystemConnector sheatingSystemConnector = new HeatingSystemConnector();
+
     //sample unit for tests
     public HeatingControlUnit sampleUnit = new HeatingControlUnit("sample");
 
