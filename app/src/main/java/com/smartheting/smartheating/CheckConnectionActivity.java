@@ -12,10 +12,9 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import heating.control.ConnectionHandler;
-import heating.control.HeatingSystemConnector;
 
 @EActivity
-public class SettingsActivity extends AppCompatActivity {
+public class CheckConnectionActivity extends AppCompatActivity {
 
     @ViewById(R.id.bConnect)
     Button bConnect;
@@ -30,7 +29,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_check_connection);
     }
     @Click(R.id.bConnect)
     public void connectToWifi(View v){

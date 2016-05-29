@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     @Click(R.id.tvSettings)
     public void settingsActiv(View v){
         Toast.makeText(MainActivity.this, "Setitngs", Toast.LENGTH_SHORT).show();
-        Intent settingsIntent = new Intent(this, SettingsActivity_.class);
+        Intent settingsIntent = new Intent(this, CheckConnectionActivity_.class);
         startActivity(settingsIntent);
     }
 
