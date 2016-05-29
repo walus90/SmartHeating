@@ -89,24 +89,30 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Click(R.id.statisticTv)
+    @Click(R.id.tvStatistic)
     public void statisticActiv(View v){
         Toast.makeText(MainActivity.this, "Statistic", Toast.LENGTH_SHORT).show();
         Intent statisticIntent = new Intent(MainActivity.this, StatisticsActivity_.class);
         MainActivity.this.startActivity(statisticIntent);
     }
 
-    @Click(R.id.settingsTv)
+    @Click(R.id.tvSettings)
     public void settingsActiv(View v){
         Toast.makeText(MainActivity.this, "Setitngs", Toast.LENGTH_SHORT).show();
         Intent settingsIntent = new Intent(this, SettingsActivity_.class);
         startActivity(settingsIntent);
     }
 
-    @Click(R.id.unitTv)
+    @Click(R.id.tvUnit)
     public void unitActiv(View v){
         Intent showIntent = new Intent(MainActivity.this, UnitsActivity_.class);
         MainActivity.this.startActivity(showIntent);
+    }
+
+    @Click(R.id.tvConfiguration)
+    public void tvConfiguration(View v){
+        Intent configIntent = new Intent(this, ConfigurationActivity_.class);
+        MainActivity.this.startActivity(configIntent);
     }
 
 /*

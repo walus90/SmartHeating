@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/units"
-        android:id="@+id/unitTv"
+        android:id="@+id/tvUnit"
         android:clickable="true"
         android:enabled="true" />
 
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/configuration"
-        android:id="@+id/configurationTv"
+        android:id="@+id/tvConfiguration"
         android:enabled="true"
         android:clickable="true" />
 
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/settings"
-        android:id="@+id/settingsTv"
+        android:id="@+id/tvSettings"
         android:clickable="true"
         android:enabled="true" />
 
@@ -50,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hotsot"
-        android:id="@+id/switchHotSpot"
+        android:id="@+id/tbHotSpot"
         android:checked="false"
         android:clickable="true"
         android:enabled="true"
