@@ -24,7 +24,8 @@
         <activity android:name=".UnitDetailActivity_" />
         <activity android:name=".StatisticsActivity_" />
         <activity android:name=".CheckConnectionActivity_" />
-        <activity android:name=".ConfigurationActivity_"></activity>
+        <activity android:name=".ConfigurationActivity_" />
+        <activity android:name=".SettingsActivity_"></activity>
     </application>
 
 </manifest>
