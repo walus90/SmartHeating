@@ -1,18 +1,12 @@
 package heating.control;
 
-import android.widget.Toast;
+import android.util.Log;
 
-import org.androidannotations.annotations.Background;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.SupposeBackground;
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -31,17 +25,26 @@ public class ConnectionHandler implements DataHandler{
 
     private Protocol mProtocol;
     private Socket mSocket;
-    private static final int HEATINGPORT = 5000;
-    //j5 ip
-    private static final String SERVER_IP = "10.175.229.241";
+    private int mHeatingPort = 8080;
+    //lenovo ip
+    private String mServerIp = "192.168.1.51";
+
+    public void setServerIp(String mServerIp) {
+        this.mServerIp = mServerIp;
+    }
+
+    public void setHeatingPort(int mHeatingPort) {
+        this.mHeatingPort = mHeatingPort;
+    }
 
     private boolean established;
 
-    public ConnectionHandler(){
+    @SupposeBackground
+    public void connectWithUnit(){
         // establishing connection
         try{
-            InetAddress intendtAddress = InetAddress.getByName(SERVER_IP);
-            mSocket = new Socket(intendtAddress, HEATINGPORT);
+            InetAddress intendtAddress = InetAddress.getByName(mServerIp);
+            mSocket = new Socket(intendtAddress, mHeatingPort);
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -59,13 +62,19 @@ public class ConnectionHandler implements DataHandler{
 
     }
 
-    @Background
+    @SupposeBackground
     @Override
     public void sendData() {
         try {
             String msg = "Hello";
             OutputStream outputStream = null;
-            outputStream = mSocket.getOutputStream();
+            if(mSocket!=null){
+                outputStream = mSocket.getOutputStream();
+            }
+            else{
+                Log.i("sendData()", "socket field is null!");
+                return;
+            }
             outputStream.write(msg.getBytes(), 0, msg.length());
             outputStream.close();
         } catch (IOException e) {

@@ -3,6 +3,7 @@ package heating.control;
 import android.content.Context;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.androidannotations.annotations.Background;
@@ -25,10 +26,14 @@ public class HeatingSystemConnector implements ConnectionEstablisher {
     String mNetworkPass = "94laskowicka111";
     Context mContext;
 
-    public HeatingSystemConnector(Context context) {
+    public void setmContext(Context mContext) {
+        this.mContext = mContext;
+    }
+
+    public HeatingSystemConnector() {
         //this.mNtworkSSID = mNtworkSSID;
         //this.mNetworkPass = mNetworkPass;
-        this.mContext = context;
+        //this.mContext = context;
     }
 
     @Override
@@ -38,6 +43,10 @@ public class HeatingSystemConnector implements ConnectionEstablisher {
 
     @Background
     public void connectToWifi(){
+        if(mContext==null){
+            Log.i("connect to WiFi", "you have to set Context first!");
+            return;
+        }
         WifiConfiguration conf = new WifiConfiguration();
         conf.SSID = "\"" + mNtworkSSID + "\"";
         //I assume WPE connection

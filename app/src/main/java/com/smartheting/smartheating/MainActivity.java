@@ -27,11 +27,10 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<HeatingControlUnit> sUnitsList = new ArrayList<HeatingControlUnit>();
     public static ConnectionHandler sWifiConnectionHandler = new ConnectionHandler();
     //need to think how to use context
-    //public static HeatingSystemConnector sheatingSystemConnector = new HeatingSystemConnector();
+    public static HeatingSystemConnector sHeatingSystemConnector = new HeatingSystemConnector();
 
     //sample unit for tests
     public HeatingControlUnit sampleUnit = new HeatingControlUnit("sample");
-
 
     private WifiApManager wifiApManager;
     // to turn WiFi on if it was enabled before launching application
@@ -57,24 +56,24 @@ public class MainActivity extends AppCompatActivity {
         sUnitsList.add(new HeatingControlUnit("ejemplo"));
         Log.i(this.toString(), "units added to sUnitsList");
 
-        wifiApManager = new WifiApManager(this);
+        //wifiApManager = new WifiApManager(this);
         //wifiApManager.setWifiApEnabled(wifiApManager.getWifiApConfiguration(), true);
-        mFormerWifiState = wifiApManager.getWifiManager().isWifiEnabled();
+        //mFormerWifiState = wifiApManager.getWifiManager().isWifiEnabled();
 
-//        sHotSpot.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if(!buttonView.isChecked()){
-//                    wifiApManager.setWifiApEnabled(wifiApManager.getWifiApConfiguration(), false);
-//                    Toast.makeText(MainActivity.this, "turning " + wifiApManager.getWifiApConfiguration().SSID + " off", Toast.LENGTH_SHORT).show();
-//                }
-//                else{
-//                    wifiApManager.setWifiApEnabled(wifiApManager.getWifiApConfiguration(), true);
-//                    Toast.makeText(MainActivity.this, "turning " + wifiApManager.getWifiApConfiguration().SSID + " on", Toast.LENGTH_SHORT).show();
-//                }
-//                Log.i(MainActivity.this.getClass().toString(), wifiApManager.getWifiApConfiguration().wepKeys.toString());
-//            }
-//        });
+/*        sHotSpot.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!buttonView.isChecked()){
+                    wifiApManager.setWifiApEnabled(wifiApManager.getWifiApConfiguration(), false);
+                    Toast.makeText(MainActivity.this, "turning " + wifiApManager.getWifiApConfiguration().SSID + " off", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    wifiApManager.setWifiApEnabled(wifiApManager.getWifiApConfiguration(), true);
+                    Toast.makeText(MainActivity.this, "turning " + wifiApManager.getWifiApConfiguration().SSID + " on", Toast.LENGTH_SHORT).show();
+                }
+                Log.i(MainActivity.this.getClass().toString(), wifiApManager.getWifiApConfiguration().wepKeys.toString());
+            }
+        });*/
 
     }
 
@@ -109,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
         Intent showIntent = new Intent(MainActivity.this, UnitsActivity_.class);
         MainActivity.this.startActivity(showIntent);
     }
-
 
 /*
 turning WiFi back, think how to solve it

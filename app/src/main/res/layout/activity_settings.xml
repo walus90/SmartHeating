@@ -18,8 +18,16 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
+        android:id="@+id/etPort"
+        android:editable="true"
+        android:text="@string/enter_port" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
         android:id="@+id/etIp"
-        android:text="enter ip" />
+        android:text="@string/enter_ip" />
 
     <Button
         android:layout_width="wrap_content"

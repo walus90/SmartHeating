@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.smartheting.smartheating">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -22,7 +23,7 @@
         <activity android:name=".UnitsActivity_" />
         <activity android:name=".UnitDetailActivity_" />
         <activity android:name=".StatisticsActivity_" />
-        <activity android:name=".SettingsActivity_"/>
+        <activity android:name=".SettingsActivity_" />
     </application>
 
 </manifest>
