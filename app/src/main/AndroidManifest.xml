@@ -25,7 +25,8 @@
         <activity android:name=".StatisticsActivity_" />
         <activity android:name=".CheckConnectionActivity_" />
         <activity android:name=".ConfigurationActivity_" />
-        <activity android:name=".SettingsActivity_"></activity>
+        <activity android:name=".SettingsActivity_" />
+        <activity android:name=".SaveUnitsActivity"></activity>
     </application>
 
 </manifest>

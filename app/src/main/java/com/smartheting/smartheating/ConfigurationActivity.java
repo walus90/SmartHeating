@@ -12,8 +12,8 @@ import org.androidannotations.annotations.ViewById;
 
 @EActivity
 public class ConfigurationActivity extends AppCompatActivity {
-    @ViewById
-    TextView tvCheckConnection;
+    @ViewById TextView tvCheckConnection;
+    @ViewById TextView tvStroringUnits;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
