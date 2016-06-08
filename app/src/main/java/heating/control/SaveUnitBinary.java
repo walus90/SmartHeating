@@ -31,7 +31,7 @@ public class SaveUnitBinary implements UnitSaver {
         try {
             fos = mContext.openFileOutput(fileName, Context.MODE_PRIVATE);
             os = new ObjectOutputStream(fos);
-            os.writeObject(this);
+            os.writeObject(unit);
             if(os!=null)
                 os.close();
             if(fos!=null)

@@ -44,6 +44,5 @@ public class StatisticsActivity extends AppCompatActivity {
         LineData lineData = new LineData(as, sampleData);
         chart.setData(lineData);
         chart.invalidate();
-
     }
 }

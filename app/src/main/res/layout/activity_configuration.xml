@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/storing_units"
-        android:id="@+id/tvStroringUnits"
+        android:id="@+id/tvStoringUnits"
         android:clickable="true"
         android:layout_below="@+id/tvCheckConnection"
         android:layout_alignRight="@+id/tvCheckConnection"

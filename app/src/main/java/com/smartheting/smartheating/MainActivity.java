@@ -19,12 +19,16 @@ import java.util.ArrayList;
 import heating.control.ConnectionHandler;
 import heating.control.HeatingControlUnit;
 import heating.control.HeatingSystemConnector;
+import heating.control.LoadUnitBinary;
+import heating.control.LoadUnitBinary_;
 import wifihotspotutils.WifiApManager;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
 
+    // TODO check how to clear elements
     public static ArrayList<HeatingControlUnit> sUnitsList = new ArrayList<HeatingControlUnit>();
+    private LoadUnitBinary mBinaryLoader;
     public static ConnectionHandler sWifiConnectionHandler = new ConnectionHandler();
     //need to think how to use context
     public static HeatingSystemConnector sHeatingSystemConnector = new HeatingSystemConnector();
@@ -50,30 +54,30 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        sUnitsList.add(sampleUnit);
-        sUnitsList.add(new HeatingControlUnit("ejemplo"));
-        Log.i(this.toString(), "units added to sUnitsList");
+        mBinaryLoader = new LoadUnitBinary();
+        mBinaryLoader.setContext(this);
+        mBinaryLoader.readAllUnitsBinary();
 
-        //wifiApManager = new WifiApManager(this);
-        //wifiApManager.setWifiApEnabled(wifiApManager.getWifiApConfiguration(), true);
-        //mFormerWifiState = wifiApManager.getWifiManager().isWifiEnabled();
+//        sUnitsList.add(sampleUnit);
+//        sUnitsList.add(new HeatingControlUnit("ejemplo"));
+//        Log.i(this.toString(), "units added to sUnitsList");
 
-/*        sHotSpot.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(!buttonView.isChecked()){
-                    wifiApManager.setWifiApEnabled(wifiApManager.getWifiApConfiguration(), false);
-                    Toast.makeText(MainActivity.this, "turning " + wifiApManager.getWifiApConfiguration().SSID + " off", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    wifiApManager.setWifiApEnabled(wifiApManager.getWifiApConfiguration(), true);
-                    Toast.makeText(MainActivity.this, "turning " + wifiApManager.getWifiApConfiguration().SSID + " on", Toast.LENGTH_SHORT).show();
-                }
-                Log.i(MainActivity.this.getClass().toString(), wifiApManager.getWifiApConfiguration().wepKeys.toString());
-            }
-        });*/
+
+//        sHotSpot.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if(!buttonView.isChecked()){
+//                    wifiApManager.setWifiApEnabled(wifiApManager.getWifiApConfiguration(), false);
+//                    Toast.makeText(MainActivity.this, "turning " + wifiApManager.getWifiApConfiguration().SSID + " off", Toast.LENGTH_SHORT).show();
+//                }
+//                else{
+//                    wifiApManager.setWifiApEnabled(wifiApManager.getWifiApConfiguration(), true);
+//                    Toast.makeText(MainActivity.this, "turning " + wifiApManager.getWifiApConfiguration().SSID + " on", Toast.LENGTH_SHORT).show();
+//                }
+//                Log.i(MainActivity.this.getClass().toString(), wifiApManager.getWifiApConfiguration().wepKeys.toString());
+//            }
+//        });
 
     }
 
@@ -91,14 +95,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Click(R.id.tvStatistic)
     public void statisticActiv(View v){
-        Toast.makeText(MainActivity.this, "Statistic", Toast.LENGTH_SHORT).show();
-        Intent statisticIntent = new Intent(MainActivity.this, StatisticsActivity_.class);
-        MainActivity.this.startActivity(statisticIntent);
+        Toast.makeText(this, "Statistic", Toast.LENGTH_SHORT).show();
+        Intent statisticIntent = new Intent(this, StatisticsActivity_.class);
+        startActivity(statisticIntent);
     }
 
     @Click(R.id.tvSettings)
     public void settingsActiv(View v){
-        Toast.makeText(MainActivity.this, "Setitngs", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Settitngs", Toast.LENGTH_SHORT).show();
         Intent settingsIntent = new Intent(this, SettingsActivity_.class);
         startActivity(settingsIntent);
     }

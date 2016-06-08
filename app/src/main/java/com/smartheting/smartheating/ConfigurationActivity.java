@@ -13,7 +13,7 @@ import org.androidannotations.annotations.ViewById;
 @EActivity
 public class ConfigurationActivity extends AppCompatActivity {
     @ViewById TextView tvCheckConnection;
-    @ViewById TextView tvStroringUnits;
+    @ViewById TextView tvStoringUnits;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,5 +25,11 @@ public class ConfigurationActivity extends AppCompatActivity {
     public void tvCheckConnection(View v){
         Intent checkCon = new Intent(this, CheckConnectionActivity_.class);
         startActivity(checkCon);
+    }
+
+    @Click
+    public void tvStoringUnits(View v){
+        Intent storageActiv = new Intent(this, SaveUnitsActivity_.class);
+        startActivity(storageActiv);
     }
 }
