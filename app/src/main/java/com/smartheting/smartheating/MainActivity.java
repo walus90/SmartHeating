@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -119,6 +120,12 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.this.startActivity(configIntent);
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.settings, menu);
+        return true;
+    }
 
 /*
 turning WiFi back, think how to solve it
