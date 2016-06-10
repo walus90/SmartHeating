@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.smartheating.model.HeatingData;
+
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.EActivity;
@@ -22,6 +24,8 @@ import heating.control.HeatingControlUnit;
 import heating.control.HeatingSystemConnector;
 import heating.control.LoadUnitBinary;
 import heating.control.LoadUnitBinary_;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import wifihotspotutils.WifiApManager;
 
 @EActivity(R.layout.activity_main)
@@ -41,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
     // to turn WiFi on if it was enabled before launching application
     private boolean mFormerWifiState;
 
+    private Realm realm;
+    private RealmConfiguration realmConfig;
+
     @ViewById(R.id.tvUnit)
     TextView tvUnits;
     @ViewById(R.id.tvConfiguration)
@@ -59,6 +66,11 @@ public class MainActivity extends AppCompatActivity {
         mBinaryLoader = new LoadUnitBinary();
         mBinaryLoader.setContext(this);
         mBinaryLoader.readAllUnitsBinary();
+
+        // Create the Realm configuration
+        realmConfig = new RealmConfiguration.Builder(this).build();
+        // Open the Realm for the UI thread.
+        realm = Realm.getInstance(realmConfig);
 
 //        sUnitsList.add(sampleUnit);
 //        sUnitsList.add(new HeatingControlUnit("ejemplo"));
@@ -103,9 +115,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Click(R.id.tvSettings)
     public void settingsActiv(View v){
-        Toast.makeText(this, "Settitngs", Toast.LENGTH_SHORT).show();
         Intent settingsIntent = new Intent(this, SettingsActivity_.class);
         startActivity(settingsIntent);
+        addHeatingData(realm);
+        showRecord(realm);
     }
 
     @Click(R.id.tvUnit)
@@ -127,18 +140,25 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-/*
-turning WiFi back, think how to solve it
-@Override
-protected void onStop(){
-super.onStop();
-Log.i("MainActivity", "Accesing Stop");
-// TODO create option to let user decide what to do. Now turn WiFi on if was before
-if(mFormerWifiState){
-this.wifiApManager.getWifiManager().setWifiEnabled(true);
-Toast.makeText(MainActivity.this, "Accesssing MainActivity.onPause", Toast.LENGTH_SHORT).show();
-}
-}
-*/
+    // I think it is enough to add object
+    public void addHeatingData(Realm realm){
+        realm.executeTransaction(new Realm.Transaction(){
+            @Override
+            public void execute(Realm realm) {
+                HeatingData heatingData = realm.createObject(HeatingData.class);
+                heatingData.setCurrentTemperature(25.0);
+                // not sure about the time
+                Long tsLong = System.currentTimeMillis()/1000;
+                heatingData.setTimestamp(tsLong);
+                heatingData.setUnitId(1);
+            }
+        });
+    }
+
+    public void showRecord(Realm realm){
+        HeatingData heatingData = realm.where(HeatingData.class).findFirst();
+        Toast.makeText(this, "in time "+ heatingData.getTimestamp() + "temperature is " + heatingData.getCurrentTemperature(),
+                Toast.LENGTH_SHORT).show();
+    }
 
 }
