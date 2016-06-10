@@ -1,11 +1,12 @@
 package com.smartheating.model;
 
 import io.realm.RealmObject;
+import module.control.DataSample;
 
 /**
  * Created by Wojtek on 2016-06-10.
  */
-public class HeatingData extends RealmObject {
+public class HeatingData extends RealmObject implements DataSample<Double> {
     private long timestamp;
     private int unitId;
     private double currentTemperature;
@@ -35,4 +36,13 @@ public class HeatingData extends RealmObject {
     }
 
 
+    @Override
+    public Double getValue() {
+        return getCurrentTemperature();
+    }
+
+    @Override
+    public long getTime() {
+        return getTimestamp();
+    }
 }

@@ -26,6 +26,7 @@ import heating.control.LoadUnitBinary;
 import heating.control.LoadUnitBinary_;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 import wifihotspotutils.WifiApManager;
 
 @EActivity(R.layout.activity_main)
@@ -111,14 +112,14 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Statistic", Toast.LENGTH_SHORT).show();
         Intent statisticIntent = new Intent(this, StatisticsActivity_.class);
         startActivity(statisticIntent);
+        addHeatingData(realm);
+        showRecord(realm);
     }
 
     @Click(R.id.tvSettings)
     public void settingsActiv(View v){
         Intent settingsIntent = new Intent(this, SettingsActivity_.class);
         startActivity(settingsIntent);
-        addHeatingData(realm);
-        showRecord(realm);
     }
 
     @Click(R.id.tvUnit)
@@ -146,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void execute(Realm realm) {
                 HeatingData heatingData = realm.createObject(HeatingData.class);
-                heatingData.setCurrentTemperature(25.0);
+                heatingData.setCurrentTemperature(23.7);
                 // not sure about the time
                 Long tsLong = System.currentTimeMillis()/1000;
                 heatingData.setTimestamp(tsLong);
@@ -157,8 +158,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void showRecord(Realm realm){
         HeatingData heatingData = realm.where(HeatingData.class).findFirst();
-        Toast.makeText(this, "in time "+ heatingData.getTimestamp() + "temperature is " + heatingData.getCurrentTemperature(),
-                Toast.LENGTH_SHORT).show();
+        String addedVal = "in time "+ heatingData.getTimestamp() + " temperature is " + heatingData.getCurrentTemperature();
+        Toast.makeText(this, addedVal,Toast.LENGTH_SHORT).show();
+        RealmResults<HeatingData> allValues = realm.where(HeatingData.class).findAll();
+        for(HeatingData h: allValues) {
+            addedVal = "in time "+ h.getTimestamp() + " temperature is " + h.getCurrentTemperature();
+            Log.i(MainActivity_.class.getName(), addedVal);
+        }
     }
 
 }
