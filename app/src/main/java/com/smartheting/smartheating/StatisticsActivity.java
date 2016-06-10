@@ -8,41 +8,48 @@ import com.github.mikephil.charting.data.DataSet;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.smartheating.model.HeatingData;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
+
 @EActivity
 public class StatisticsActivity extends AppCompatActivity {
 
     @ViewById(R.id.lineChart)
     LineChart chart;
+    private Realm realm;
+    private RealmConfiguration realmConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.line_chart);
-        //setContentView(chart);
+
+        realmConfig = new RealmConfiguration.Builder(this).build();
+        realm = Realm.getDefaultInstance();
+
+        RealmResults<HeatingData> latestResults = realm.where(HeatingData.class).equalTo("unitId", 1).findAll();
         ArrayList<Entry> sampleEntries = new ArrayList<>();
-        sampleEntries.add(new Entry(2.3f, 1));
-        sampleEntries.add(new Entry(43.2f, 2));
-        sampleEntries.add(new Entry(33.5f, 3));
-        sampleEntries.add(new Entry(45f, 4));
-        sampleEntries.add(new Entry(52.223f, 5));
-        sampleEntries.add(new Entry(39.93f, 6));
-        LineDataSet sampleData = new LineDataSet(sampleEntries, "some shity data");
         ArrayList<String> as = new ArrayList<>();
-        as.add("nie");
-        as.add("ogarniam");
-        as.add("do");
-        as.add("konca");
-        as.add("5");
-        as.add("6");
-        as.add("7");
+        for(int i=0; i<latestResults.size(); i++) {
+            sampleEntries.add(new Entry(new Float(latestResults.get(i).getValue()), i));
+            as.add(Integer.toString(i));
+        }
+        LineDataSet sampleData = new LineDataSet(sampleEntries, "Unit1");
         LineData lineData = new LineData(as, sampleData);
         chart.setData(lineData);
         chart.invalidate();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        realm.close(); // Remember to close Realm when done.
     }
 }
