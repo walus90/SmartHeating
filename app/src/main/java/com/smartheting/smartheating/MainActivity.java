@@ -23,7 +23,6 @@ import heating.control.ConnectionHandler;
 import heating.control.HeatingControlUnit;
 import heating.control.HeatingSystemConnector;
 import heating.control.LoadUnitBinary;
-//import heating.control.LoadUnitBinary_;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
@@ -65,31 +64,14 @@ public class MainActivity extends AppCompatActivity {
 //        mBinaryLoader.setContext(this);
 //        mBinaryLoader.readAllUnitsBinary();
 
-        // Create the Realm configuration
-        realmConfig = new RealmConfiguration.Builder(this).build();
-        // Open the Realm for the UI thread.
-        realm = Realm.getInstance(realmConfig);
-
         sUnitsList.add(new HeatingControlUnit("sample"));
         sUnitsList.add(new HeatingControlUnit("ejemplo"));
         Log.i(this.toString(), "units added to sUnitsList");
 
-
-//        sHotSpot.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if(!buttonView.isChecked()){
-//                    wifiApManager.setWifiApEnabled(wifiApManager.getWifiApConfiguration(), false);
-//                    Toast.makeText(MainActivity.this, "turning " + wifiApManager.getWifiApConfiguration().SSID + " off", Toast.LENGTH_SHORT).show();
-//                }
-//                else{
-//                    wifiApManager.setWifiApEnabled(wifiApManager.getWifiApConfiguration(), true);
-//                    Toast.makeText(MainActivity.this, "turning " + wifiApManager.getWifiApConfiguration().SSID + " on", Toast.LENGTH_SHORT).show();
-//                }
-//                Log.i(MainActivity.this.getClass().toString(), wifiApManager.getWifiApConfiguration().wepKeys.toString());
-//            }
-//        });
-
+        // Create the Realm configuration
+        realmConfig = new RealmConfiguration.Builder(this).build();
+        // Open the Realm for the UI thread.
+        realm = Realm.getInstance(realmConfig);
     }
 
     @Click

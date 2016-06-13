@@ -12,7 +12,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
-@EActivity
+@EActivity(R.layout.activity_unit_detail)
 public class UnitDetailActivity extends AppCompatActivity {
 
     @ViewById(R.id.etId)
@@ -32,8 +32,6 @@ public class UnitDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_unit_detail);
-        Intent i = getIntent();
     }
 
     @AfterViews
