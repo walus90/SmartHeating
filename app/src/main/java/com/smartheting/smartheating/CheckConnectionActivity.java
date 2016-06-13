@@ -33,8 +33,8 @@ public class CheckConnectionActivity extends AppCompatActivity {
     }
     @Click(R.id.bConnect)
     public void connectToWifi(View v){
-        MainActivity_.sHeatingSystemConnector.setmContext(this);
-        MainActivity_.sHeatingSystemConnector.establishConnection();
+        MainActivity.sHeatingSystemConnector.setmContext(this);
+        MainActivity.sHeatingSystemConnector.establishConnection();
     }
 
     @Background

@@ -13,49 +13,48 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ItemClick;
+import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 
 import heating.control.HeatingControlUnit;
 
-@EActivity
+@EActivity(R.layout.activity_units)
 public class UnitsActivity extends Activity {
 
-    static String UNIT_ID = "unit mId";
-    static String UNIT_NAME = "unit mName";
-    static String EDITABLE = "editable";
-    private ListView mUnitsLv;
+    @ViewById(R.id.lvUnits)
+    ListView mUnitsLv;
+
+    static final String UNIT_ID = "unit mId";
+    static final String UNIT_NAME = "unit mName";
+    static final String EDITABLE = "editable";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_units);
-        mUnitsLv = (ListView)findViewById(R.id.lvUnits);
+    }
+
+    @AfterViews
+    void generateUnitList() {
         ArrayList<String> l = new ArrayList<String>();
-        //ListAdapter listAdapter = new ArrayAdapter<HeatingControlUnit>(MainActivity.sUnitsList);
         for(HeatingControlUnit u : MainActivity.sUnitsList) {
             l.add(u.getName());
         }
         ListAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.activity_unit_overview, l);
         mUnitsLv.setAdapter(listAdapter);
         registerForContextMenu(mUnitsLv);
+    }
 
-        mUnitsLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //open activity with detailed data
-                //TextView tv = (TextView) mUnitsLv.getItemAtPosition(position);
-                String tv = (String) mUnitsLv.getItemAtPosition(position);
-
-                Intent i = new Intent(UnitsActivity.this, UnitDetailActivity_.class);
-                // better to pass int or string ?
-                i.putExtra(UNIT_ID, Integer.toString(MainActivity.sUnitsList.get(position).getId()));
-                i.putExtra(UNIT_NAME, MainActivity.sUnitsList.get(position).getName());
-                startActivity(i);
-            }
-        });
-
+    @ItemClick(R.id.lvUnits)
+    public void onItemClick(int position) {
+        Intent i = new Intent(UnitsActivity.this, UnitDetailActivity_.class);
+        i.putExtra(UNIT_ID, Integer.toString(MainActivity.sUnitsList.get(position).getId()));
+        i.putExtra(UNIT_NAME, MainActivity.sUnitsList.get(position).getName());
+        i.putExtra(EDITABLE, false);
+        startActivity(i);
     }
 
     @Override

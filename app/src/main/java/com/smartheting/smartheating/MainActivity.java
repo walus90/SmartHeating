@@ -23,7 +23,7 @@ import heating.control.ConnectionHandler;
 import heating.control.HeatingControlUnit;
 import heating.control.HeatingSystemConnector;
 import heating.control.LoadUnitBinary;
-import heating.control.LoadUnitBinary_;
+//import heating.control.LoadUnitBinary_;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
@@ -38,9 +38,6 @@ public class MainActivity extends AppCompatActivity {
     public static ConnectionHandler sWifiConnectionHandler = new ConnectionHandler();
     //need to think how to use context
     public static HeatingSystemConnector sHeatingSystemConnector = new HeatingSystemConnector();
-
-    //sample unit for tests
-    public HeatingControlUnit sampleUnit = new HeatingControlUnit("sample");
 
     private WifiApManager wifiApManager;
     // to turn WiFi on if it was enabled before launching application
@@ -64,18 +61,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mBinaryLoader = new LoadUnitBinary();
-        mBinaryLoader.setContext(this);
-        mBinaryLoader.readAllUnitsBinary();
+//        mBinaryLoader = new LoadUnitBinary();
+//        mBinaryLoader.setContext(this);
+//        mBinaryLoader.readAllUnitsBinary();
 
         // Create the Realm configuration
         realmConfig = new RealmConfiguration.Builder(this).build();
         // Open the Realm for the UI thread.
         realm = Realm.getInstance(realmConfig);
 
-//        sUnitsList.add(sampleUnit);
-//        sUnitsList.add(new HeatingControlUnit("ejemplo"));
-//        Log.i(this.toString(), "units added to sUnitsList");
+        sUnitsList.add(new HeatingControlUnit("sample"));
+        sUnitsList.add(new HeatingControlUnit("ejemplo"));
+        Log.i(this.toString(), "units added to sUnitsList");
 
 
 //        sHotSpot.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

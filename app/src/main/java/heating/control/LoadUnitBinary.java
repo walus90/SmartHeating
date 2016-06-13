@@ -3,7 +3,7 @@ package heating.control;
 import android.content.Context;
 import android.util.Log;
 
-import com.smartheting.smartheating.MainActivity_;
+import com.smartheting.smartheating.MainActivity;
 
 import org.androidannotations.annotations.EBean;
 
@@ -62,12 +62,12 @@ public class LoadUnitBinary implements UnitLoader{
 
     // sets all units in list
     public void readAllUnitsBinary(){
-        MainActivity_.sUnitsList.clear();
+        MainActivity.sUnitsList.clear();
         String[] names = mContext.fileList();
         for(String s : names){
             if(s.contains("HeatingUnit")) {
                 this.setCurentFileName(s);
-                MainActivity_.sUnitsList.add((HeatingControlUnit) loadUnit());
+                MainActivity.sUnitsList.add((HeatingControlUnit) loadUnit());
             }
         }
     }
