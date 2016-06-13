@@ -51,7 +51,7 @@ public class UnitsActivity extends Activity {
     @ItemClick(R.id.lvUnits)
     public void onItemClick(int position) {
         Intent i = new Intent(UnitsActivity.this, UnitDetailActivity_.class);
-        i.putExtra(UNIT_ID, Integer.toString(MainActivity.sUnitsList.get(position).getId()));
+        i.putExtra(UNIT_ID, MainActivity.sUnitsList.get(position).getId());
         i.putExtra(UNIT_NAME, MainActivity.sUnitsList.get(position).getName());
         i.putExtra(EDITABLE, false);
         startActivity(i);
@@ -75,7 +75,7 @@ public class UnitsActivity extends Activity {
                 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
                 int position = info.position;
                 Intent i = new Intent(UnitsActivity.this, UnitDetailActivity_.class);
-                i.putExtra(UNIT_ID, Integer.toString(MainActivity.sUnitsList.get(position).getId()));
+                i.putExtra(UNIT_ID, MainActivity.sUnitsList.get(position).getId());
                 i.putExtra(UNIT_NAME, MainActivity.sUnitsList.get(position).getName());
                 i.putExtra(EDITABLE, true);
                 startActivity(i);

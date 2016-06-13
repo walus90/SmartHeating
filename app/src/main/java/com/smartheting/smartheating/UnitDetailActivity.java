@@ -15,10 +15,6 @@ import org.androidannotations.annotations.ViewById;
 @EActivity
 public class UnitDetailActivity extends AppCompatActivity {
 
-    //private String mUnitId;
-    //private String mUnitName;
-    //private boolean mEdition;
-
     @ViewById(R.id.etId)
     TextView etId;
     @ViewById(R.id.etName)
@@ -27,7 +23,7 @@ public class UnitDetailActivity extends AppCompatActivity {
     Button bSave;
 
     @Extra(UnitsActivity.UNIT_ID)
-    String mUnitId;
+    int mUnitId;
     @Extra(UnitsActivity.UNIT_NAME)
     String mUnitName;
     @Extra(UnitsActivity.EDITABLE)
@@ -42,7 +38,7 @@ public class UnitDetailActivity extends AppCompatActivity {
 
     @AfterViews
     void setUnitViews() {
-        etId.setText(mUnitId);
+        etId.setText(Integer.toString(mUnitId));
         etName.setText(mUnitName);
         setForEdition(mEdition);
     }
