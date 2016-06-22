@@ -21,6 +21,7 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 
 import heating.control.HeatingControlUnit;
+import module.control.BaseUnit;
 
 @EActivity(R.layout.activity_units)
 public class UnitsActivity extends Activity {
@@ -40,8 +41,10 @@ public class UnitsActivity extends Activity {
     @AfterViews
     void generateUnitList() {
         ArrayList<String> l = new ArrayList<String>();
-        for(HeatingControlUnit u : MainActivity.sUnitsList) {
-            l.add(u.getName());
+        ArrayList<BaseUnit> units =  UnitsList.getUnitList();
+        for(BaseUnit u : units) {
+            if(u instanceof HeatingControlUnit)
+                l.add(u.getName());
         }
         ListAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.activity_unit_overview, l);
         mUnitsLv.setAdapter(listAdapter);
@@ -51,8 +54,8 @@ public class UnitsActivity extends Activity {
     @ItemClick(R.id.lvUnits)
     public void onItemClick(int position) {
         Intent i = new Intent(UnitsActivity.this, UnitDetailActivity_.class);
-        i.putExtra(UNIT_ID, MainActivity.sUnitsList.get(position).getId());
-        i.putExtra(UNIT_NAME, MainActivity.sUnitsList.get(position).getName());
+        i.putExtra(UNIT_ID, UnitsList.getUnitList().get(position).getId());
+        i.putExtra(UNIT_NAME, UnitsList.getUnitList().get(position).getName());
         i.putExtra(EDITABLE, false);
         startActivity(i);
     }
@@ -75,8 +78,8 @@ public class UnitsActivity extends Activity {
                 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
                 int position = info.position;
                 Intent i = new Intent(UnitsActivity.this, UnitDetailActivity_.class);
-                i.putExtra(UNIT_ID, MainActivity.sUnitsList.get(position).getId());
-                i.putExtra(UNIT_NAME, MainActivity.sUnitsList.get(position).getName());
+                i.putExtra(UNIT_ID, UnitsList.getUnitList().get(position).getId());
+                i.putExtra(UNIT_NAME, UnitsList.getUnitList().get(position).getName());
                 i.putExtra(EDITABLE, true);
                 startActivity(i);
             default:

@@ -9,4 +9,12 @@ public abstract class BaseUnit implements java.io.Serializable{
     //unchanged mId of unit
     protected int mId;
     protected String mName;
+
+    public String getName() {
+        return mName;
+    }
+
+    public int getId() {
+        return mId;
+    }
 }

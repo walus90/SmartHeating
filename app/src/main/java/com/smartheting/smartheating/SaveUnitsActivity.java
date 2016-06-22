@@ -33,8 +33,8 @@ public class SaveUnitsActivity extends AppCompatActivity {
 
     @Click
     public void bSaveUnits(View v){
-        for(int i=0; i<MainActivity_.sUnitsList.size(); i++) {
-            saver.saveUnit(MainActivity_.sUnitsList.get(i));
+        for(int i=0; i<UnitsList.getUnitList().size(); i++) {
+            saver.saveUnit(UnitsList.getUnitList().get(i));
         }
 
     }

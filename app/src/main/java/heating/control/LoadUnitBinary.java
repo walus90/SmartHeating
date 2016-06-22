@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.smartheting.smartheating.MainActivity;
+import com.smartheting.smartheating.UnitsList;
 
 import org.androidannotations.annotations.EBean;
 
@@ -62,12 +63,12 @@ public class LoadUnitBinary implements UnitLoader{
 
     // sets all units in list
     public void readAllUnitsBinary(){
-        MainActivity.sUnitsList.clear();
+        UnitsList.getUnitList().clear();
         String[] names = mContext.fileList();
         for(String s : names){
             if(s.contains("HeatingUnit")) {
                 this.setCurentFileName(s);
-                MainActivity.sUnitsList.add((HeatingControlUnit) loadUnit());
+                UnitsList.getUnitList().add((HeatingControlUnit) loadUnit());
             }
         }
     }

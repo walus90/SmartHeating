@@ -31,9 +31,7 @@ import wifihotspotutils.WifiApManager;
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
 
-    // TODO check how to clear elements
-    public static ArrayList<HeatingControlUnit> sUnitsList = new ArrayList<HeatingControlUnit>();
-    private LoadUnitBinary mBinaryLoader;
+    public UnitsList mUnitsList = new UnitsList(this);
     public static ConnectionHandler sWifiConnectionHandler = new ConnectionHandler();
     //need to think how to use context
     public static HeatingSystemConnector sHeatingSystemConnector = new HeatingSystemConnector();
@@ -59,15 +57,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        mBinaryLoader = new LoadUnitBinary();
-//        mBinaryLoader.setContext(this);
-//        mBinaryLoader.readAllUnitsBinary();
-
-        sUnitsList.add(new HeatingControlUnit("sample"));
-        sUnitsList.add(new HeatingControlUnit("ejemplo"));
-        Log.i(this.toString(), "units added to sUnitsList");
-
         // Create the Realm configuration
         realmConfig = new RealmConfiguration.Builder(this).build();
         // Open the Realm for the UI thread.
