@@ -12,6 +12,8 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
+import module.control.BaseUnit;
+
 @EActivity(R.layout.activity_unit_detail)
 public class UnitDetailActivity extends AppCompatActivity {
 
@@ -29,9 +31,12 @@ public class UnitDetailActivity extends AppCompatActivity {
     @Extra(UnitsActivity.EDITABLE)
     boolean mEdition;
 
+    private BaseUnit unitToShow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        unitToShow =  UnitsList.getUnitList().get(mUnitId);
     }
 
     @AfterViews

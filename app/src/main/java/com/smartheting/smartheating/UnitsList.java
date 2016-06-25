@@ -29,6 +29,7 @@ public class UnitsList {
         return sUnitsList;
     }
 
+    // returns true if unit was added succesfully
     public boolean addUnit(BaseUnit unit){
         boolean valid = true;
         // check if the name is taken
@@ -39,5 +40,20 @@ public class UnitsList {
             }
         }
         return valid;
+    }
+
+    public static BaseUnit getUnitById(int id){
+        return sUnitsList.get(id);
+    }
+
+    public static BaseUnit getUnitByName(String name){
+        BaseUnit bu = null;
+        for(int i=0; i<sUnitsList.size(); i++){
+            if(sUnitsList.get(i).getName().equals(name)){
+                bu = sUnitsList.get(i);
+                break;
+            }
+        }
+        return bu;
     }
 }
