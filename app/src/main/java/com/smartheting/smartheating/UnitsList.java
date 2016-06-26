@@ -42,6 +42,9 @@ public class UnitsList {
         return valid;
     }
 
+    /*
+    todo think about own exception, when there is no unit
+     */
     public static BaseUnit getUnitById(int id){
         return sUnitsList.get(id);
     }
