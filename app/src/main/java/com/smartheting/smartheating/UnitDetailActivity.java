@@ -57,9 +57,14 @@ public class UnitDetailActivity extends AppCompatActivity {
     }
 
     private void FillViewWithData(BaseUnit baseUnit) {
-        etId.setText(Integer.toString(baseUnit.getId()));
-        etName.setText(baseUnit.getName());
-        setForEdition(mEdition);
+        if(baseUnit instanceof HeatingControlUnit){
+            HeatingControlUnit hcu = (HeatingControlUnit)baseUnit;
+            FillViewWithData(hcu);
+        }else {
+            etId.setText(Integer.toString(baseUnit.getId()));
+            etName.setText(baseUnit.getName());
+            setForEdition(mEdition);
+        }
     }
 
 
