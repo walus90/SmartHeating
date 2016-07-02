@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterExtras;
@@ -15,6 +16,8 @@ import org.androidannotations.annotations.ViewById;
 
 import heating.control.HeatingControlUnit;
 import module.control.BaseUnit;
+import module.control.UnitPropertyView;
+import module.control.UnitPropertyView_;
 
 @EActivity(R.layout.activity_unit_detail)
 public class UnitDetailActivity extends AppCompatActivity {
@@ -25,6 +28,8 @@ public class UnitDetailActivity extends AppCompatActivity {
     TextView etName;
     @ViewById(R.id.bSave)
     Button bSave;
+    @ViewById(R.id.test)
+    UnitPropertyView test;
 
     @Extra(UnitsActivity.UNIT_ID)
     int mUnitId;
@@ -38,6 +43,7 @@ public class UnitDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @AfterExtras

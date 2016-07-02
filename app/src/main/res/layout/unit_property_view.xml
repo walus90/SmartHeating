@@ -9,7 +9,8 @@
         android:layout_alignParentTop="true"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="sample parameter"
-        android:id="@+id/tvParameterName" />
+        android:id="@+id/tvParameterName"
+        android:background="#a5a5a5" />
 
     <EditText
         android:background="@android:color/transparent"

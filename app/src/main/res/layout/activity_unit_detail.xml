@@ -34,6 +34,11 @@
         android:editable="true"
         android:text="sample name" />
 
+    <module.control.UnitPropertyView_
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/test"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
