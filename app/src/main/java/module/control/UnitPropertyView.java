@@ -44,5 +44,11 @@ public class UnitPropertyView extends RelativeLayout{
         bEdit.setVisibility(editable ? VISIBLE : GONE);
     }
 
+    public void setView(String name, String value, boolean editable){
+        tvParameterName.setText(name);
+        etParameterValue.setText(value);
+        bEdit.setVisibility(editable ? VISIBLE : GONE);
+    }
+
 
 }

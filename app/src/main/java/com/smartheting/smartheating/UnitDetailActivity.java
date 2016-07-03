@@ -22,14 +22,10 @@ import module.control.UnitPropertyView_;
 @EActivity(R.layout.activity_unit_detail)
 public class UnitDetailActivity extends AppCompatActivity {
 
-    @ViewById(R.id.etId)
-    TextView etId;
-    @ViewById(R.id.etName)
-    TextView etName;
     @ViewById(R.id.bSave)
     Button bSave;
-    @ViewById(R.id.test)
-    UnitPropertyView test;
+    @ViewById(R.id.upvId)
+    UnitPropertyView upvId;
 
     @Extra(UnitsActivity.UNIT_ID)
     int mUnitId;
@@ -57,8 +53,7 @@ public class UnitDetailActivity extends AppCompatActivity {
     }
 
     private void FillViewWithData(HeatingControlUnit heatingControlUnit) {
-        etId.setText(Integer.toString(heatingControlUnit.getId()));
-        etName.setText(heatingControlUnit.getName());
+        upvId.setView("Id: ", Integer.toString(unitToShow.getId()), false);
         setForEdition(mEdition);
     }
 
@@ -67,16 +62,12 @@ public class UnitDetailActivity extends AppCompatActivity {
             HeatingControlUnit hcu = (HeatingControlUnit)baseUnit;
             FillViewWithData(hcu);
         }else {
-            etId.setText(Integer.toString(baseUnit.getId()));
-            etName.setText(baseUnit.getName());
             setForEdition(mEdition);
         }
     }
 
 
     private void setForEdition(boolean toEdit){
-        etId.setEnabled(toEdit);
-        etName.setEnabled(toEdit);
         if(toEdit) {
             bSave.setVisibility(View.VISIBLE);
             bSave.setClickable(true);

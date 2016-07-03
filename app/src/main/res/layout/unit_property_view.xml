@@ -19,7 +19,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/etParameterValue"
         android:text="sample value"
-        android:layout_alignBottom="@+id/bEdit"
+        android:layout_below="@+id/tvParameterName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

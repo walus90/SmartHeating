@@ -3,41 +3,10 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/detail_id"
-        android:id="@+id/lId" />
-
-    <EditText
-        android:background="@android:color/transparent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/etId"
-        android:text="sample id" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/detail_name"
-        android:id="@+id/lName" />
-
-    <EditText
-        android:background="@android:color/transparent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/etName"
-        android:editable="true"
-        android:text="sample name" />
-
     <module.control.UnitPropertyView_
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/test"/>
+        android:id="@+id/upvId"/>
 
     <Button
         android:layout_width="wrap_content"
