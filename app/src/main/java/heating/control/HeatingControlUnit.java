@@ -7,6 +7,8 @@ import module.control.BaseUnit;
  */
 
 public class HeatingControlUnit extends BaseUnit {
+
+    public static final String TYPE = "Heating unit";
     // indicates if there are specific data for heating unit, maybe only for Local
     private boolean mAdvice;
     private boolean mValveOpen;
