@@ -41,14 +41,27 @@ public class UnitPropertyView extends RelativeLayout{
         super(context);
         tvParameterName.setText(name);
         etParameterValue.setText(value);
-        bEdit.setVisibility(editable ? VISIBLE : GONE);
+        if(!editable) {
+            etParameterValue.setClickable(false);
+            etParameterValue.setFocusable(false);
+            etParameterValue.setEnabled(false);
+            etParameterValue.setKeyListener(null);
+            bEdit.setVisibility(GONE);
+        }
     }
 
     public void setView(String name, String value, boolean editable){
         tvParameterName.setText(name);
         etParameterValue.setText(value);
-        bEdit.setVisibility(editable ? VISIBLE : GONE);
+        if(!editable) {
+            etParameterValue.setEnabled(false);
+            etParameterValue.setKeyListener(null);
+            bEdit.setVisibility(GONE);
+        }
     }
 
+    public String getPropertyValue(){
+        return this.etParameterValue.getText().toString();
+    }
 
 }

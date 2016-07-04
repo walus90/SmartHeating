@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterExtras;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
@@ -39,6 +40,7 @@ public class UnitDetailActivity extends AppCompatActivity {
     boolean mEdition;
 
     private BaseUnit unitToShow;
+    private boolean edited=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,16 +70,18 @@ public class UnitDetailActivity extends AppCompatActivity {
             HeatingControlUnit hcu = (HeatingControlUnit)baseUnit;
             FillViewWithData(hcu);
         }else {
-            setForEdition(mEdition);
+
         }
     }
 
-
-    private void setForEdition(boolean toEdit){
-        if(toEdit) {
-            bSave.setVisibility(View.VISIBLE);
-            bSave.setClickable(true);
-        }
+    @Click(R.id.bSave)
+    public void saveChangedUnit(View view){
+        //if(edited){
+            if(unitToShow instanceof HeatingControlUnit){
+                HeatingControlUnit hcu = (HeatingControlUnit)unitToShow;
+                hcu.setName(upvName.getPropertyValue());
+            }
+        //}
     }
 
 }
