@@ -32,10 +32,6 @@ import wifihotspotutils.WifiApManager;
 public class MainActivity extends AppCompatActivity {
 
     public UnitsList mUnitsList = new UnitsList(this);
-    public static ConnectionHandler sWifiConnectionHandler = new ConnectionHandler();
-    //need to think how to use context
-    public static HeatingSystemConnector sHeatingSystemConnector = new HeatingSystemConnector();
-
     private WifiApManager wifiApManager;
     // to turn WiFi on if it was enabled before launching application
     private boolean mFormerWifiState;

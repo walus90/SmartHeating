@@ -9,6 +9,7 @@ import android.widget.Toast;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EBean;
 
+import java.net.DatagramSocket;
 import java.util.List;
 
 import module.control.ConnectionEstablisher;
@@ -26,14 +27,26 @@ public class HeatingSystemConnector implements ConnectionEstablisher {
     String mNetworkPass = "94laskowicka111";
     Context mContext;
 
-    public void setmContext(Context mContext) {
+    public String gemNtworkSSID() {
+        return mNtworkSSID;
+    }
+
+    public void setNtworkSSID(String mNtworkSSID) {
+        this.mNtworkSSID = mNtworkSSID;
+    }
+
+    public void setNetworkPass(String mNetworkPass) {
+        this.mNetworkPass = mNetworkPass;
+    }
+
+    public void setContext(Context mContext) {
         this.mContext = mContext;
     }
 
-    public HeatingSystemConnector() {
-        //this.mNtworkSSID = mNtworkSSID;
-        //this.mNetworkPass = mNetworkPass;
-        //this.mContext = context;
+    public HeatingSystemConnector(Context context) {
+        this.mNtworkSSID = mNtworkSSID;
+        this.mNetworkPass = mNetworkPass;
+        this.mContext = context;
     }
 
     @Override
@@ -70,4 +83,6 @@ public class HeatingSystemConnector implements ConnectionEstablisher {
             }
         }
     }
+
+    
 }

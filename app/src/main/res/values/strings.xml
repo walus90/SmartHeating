@@ -22,4 +22,6 @@
     <string name="pref_connect_auto">Connect to WiFi automatically</string>
     <string name="menu_settings">Settings</string>
     <string name="edit_property">Edit</string>
+    <string name="enter_wifi_name">Enter WiFi network name</string>
+    <string name="enter_wifi_password">Enter WiFi password</string>
 </resources>
