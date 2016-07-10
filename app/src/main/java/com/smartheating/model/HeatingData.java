@@ -1,5 +1,7 @@
 package com.smartheating.model;
 
+import java.util.Date;
+
 import io.realm.RealmObject;
 import module.control.DataSample;
 
@@ -10,6 +12,7 @@ public class HeatingData extends RealmObject implements DataSample<Double> {
     private long timestamp;
     private int unitId;
     private double currentTemperature;
+    private Date date;
 
     public long getTimestamp() {
         return timestamp;
@@ -41,6 +44,7 @@ public class HeatingData extends RealmObject implements DataSample<Double> {
         return getCurrentTemperature();
     }
 
+    // change to view real time
     @Override
     public long getTime() {
         return getTimestamp();

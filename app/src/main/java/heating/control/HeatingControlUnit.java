@@ -1,5 +1,7 @@
 package heating.control;
 
+import java.net.InetAddress;
+
 import module.control.BaseUnit;
 
 /**
@@ -14,6 +16,7 @@ public class HeatingControlUnit extends BaseUnit {
     private boolean mValveOpen;
     private double mCurrentTemperature;
     private double mTargetTemperature;
+    private InetAddress mUnitAdress;
 
     public HeatingControlUnit(String name){
         this.mId = BaseUnit.sMaxId++;
