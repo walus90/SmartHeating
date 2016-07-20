@@ -18,7 +18,8 @@ public class HeatingControlUnit extends BaseUnit {
     private double mTargetTemperature;
     private InetAddress mUnitAdress;
 
-    public HeatingControlUnit(String name){
+    public HeatingControlUnit(String name, InetAddress mUnitAdress){
+        this.mUnitAdress = mUnitAdress;
         this.mId = BaseUnit.sMaxId++;
         this.mName = name;
     }

@@ -1,5 +1,6 @@
 package com.smartheting.smartheating;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     public UnitsList mUnitsList = new UnitsList(this);
     private WifiApManager wifiApManager;
+    static Context context;
     // to turn WiFi on if it was enabled before launching application
     private boolean mFormerWifiState;
 
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MainActivity.context = getApplicationContext();
         // Create the Realm configuration
         realmConfig = new RealmConfiguration.Builder(this).build();
         // Open the Realm for the UI thread.
@@ -129,6 +132,10 @@ public class MainActivity extends AppCompatActivity {
             addedVal = "in time "+ h.getTimestamp() + " temperature is " + h.getCurrentTemperature();
             Log.i(MainActivity_.class.getName(), addedVal);
         }
+    }
+
+    public static Context getAppContext(){
+        return MainActivity.context;
     }
 
     @Override

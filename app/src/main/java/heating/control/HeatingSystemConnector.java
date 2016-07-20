@@ -25,6 +25,8 @@ import module.control.ConnectionEstablisher;
  * I change former assumptions, I will connect to existing WiFi network
  */
 
+
+//todo change name to HeatingNetworkConnector or something similar
 @EBean
 public class HeatingSystemConnector implements ConnectionEstablisher {
 
@@ -88,36 +90,6 @@ public class HeatingSystemConnector implements ConnectionEstablisher {
                 break;
             }
         }
-    }
-
-    public void requestUnitsAdresses(){
-        // Hack Prevent crash (sending should be done using an async task), not sure if needed
-        StrictMode.ThreadPolicy policy = new   StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        try {
-            DatagramSocket ds = new DatagramSocket();
-            ds.setBroadcast(true);
-            // according to instructions, empty message is sent to get list of adresses
-            byte[] emptyData = {0};
-            int port = 8080;
-            DatagramPacket datagramPacket = new DatagramPacket(emptyData, emptyData.length, getBroadcastAddress(), port);
-            ds.send(datagramPacket);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    InetAddress getBroadcastAddress() throws IOException {
-
-        WifiManager wifi = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
-        DhcpInfo dhcp = wifi.getDhcpInfo();
-        // handle null somehow
-
-        int broadcast = (dhcp.ipAddress & dhcp.netmask) | ~dhcp.netmask;
-        byte[] quads = new byte[4];
-        for (int k = 0; k < 4; k++)
-            quads[k] = (byte) ((broadcast >> k * 8) & 0xFF);
-        return InetAddress.getByAddress(quads);
     }
 
 }

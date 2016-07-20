@@ -1,11 +1,14 @@
 package com.smartheting.smartheating;
 
 import android.content.Context;
-import android.util.Log;
 
+import java.net.Inet4Address;
+import java.net.InetAddress;
 import java.util.ArrayList;
 
+import heating.control.ConnectionHandler;
 import heating.control.HeatingControlUnit;
+import heating.control.HeatingSystemConnector;
 import heating.control.LoadUnitBinary;
 import module.control.BaseUnit;
 
@@ -14,6 +17,7 @@ import module.control.BaseUnit;
  */
 public class UnitsList {
     public static ArrayList<BaseUnit> sUnitsList = new ArrayList<BaseUnit>();
+    public static ArrayList<InetAddress> sInetAddresses = null;
     private LoadUnitBinary mBinaryLoader;
 
     public UnitsList(Context context) {
@@ -21,8 +25,16 @@ public class UnitsList {
         mBinaryLoader.setContext(context);
 //        mBinaryLoader.readAllUnitsBinary();
 
-        sUnitsList.add(new HeatingControlUnit("sample"));
-        sUnitsList.add(new HeatingControlUnit("ejemplo"));
+        if(sInetAddresses==null){
+            //todo handle null values
+            ConnectionHandler connectionHandler = new ConnectionHandler();
+            while(sInetAddresses==null){
+                connectionHandler.requestUnitsAdresses();
+            }
+        }
+
+        sUnitsList.add(new HeatingControlUnit("sample", null));
+        sUnitsList.add(new HeatingControlUnit("ejemplo", null));
     }
 
     public static ArrayList<BaseUnit> getUnitList(){
