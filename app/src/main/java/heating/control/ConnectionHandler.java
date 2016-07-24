@@ -97,14 +97,11 @@ public class ConnectionHandler implements DataHandler{
 
     @Background
     public void requestUnitsAdresses(){
-        // Hack Prevent crash (sending should be done using an async task), not sure if needed
-        //StrictMode.ThreadPolicy policy = new   StrictMode.ThreadPolicy.Builder().permitAll().build();
-        //StrictMode.setThreadPolicy(policy);
         try {
             DatagramSocket ds = new DatagramSocket();
             ds.setBroadcast(true);
             // according to instructions, empty message is sent to get list of adresses
-            byte[] emptyData = {0};
+            byte[] emptyData = new byte[0];
             int port = mHeatingPort;
             DatagramPacket datagramPacket = new DatagramPacket(emptyData, emptyData.length, getBroadcastAddress(), port);
             ds.send(datagramPacket);
@@ -171,7 +168,6 @@ public class ConnectionHandler implements DataHandler{
     verifies if list of units have proper data
     I assume, all information of "frame" are in data part of packet
     sequence of this information is in master thesis
-    TODO better checking
      */
     private boolean checkUnitListPackage(DatagramPacket datagramPacket) {
         boolean status;

@@ -25,13 +25,17 @@ public class UnitsList {
         mBinaryLoader.setContext(context);
 //        mBinaryLoader.readAllUnitsBinary();
 
-        if(sInetAddresses==null){
-            //TODO handle null values
-            ConnectionHandler connectionHandler = new ConnectionHandler();
-            while(sInetAddresses==null){
-                // probably will have to use as one thread
-                connectionHandler.requestUnitsAdresses();
-                connectionHandler.requestUnitsAdresses();
+        // to go around for a now
+        boolean readingUnitsReady = false;
+        if(readingUnitsReady) {
+            if (sInetAddresses == null) {
+                //TODO handle null values
+                ConnectionHandler connectionHandler = new ConnectionHandler();
+                while (sInetAddresses == null) {
+                    // probably will have to use as one thread
+                    connectionHandler.requestUnitsAdresses();
+                    connectionHandler.requestUnitsAdresses();
+                }
             }
         }
 
