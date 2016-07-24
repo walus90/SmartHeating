@@ -26,9 +26,11 @@ public class UnitsList {
 //        mBinaryLoader.readAllUnitsBinary();
 
         if(sInetAddresses==null){
-            //todo handle null values
+            //TODO handle null values
             ConnectionHandler connectionHandler = new ConnectionHandler();
             while(sInetAddresses==null){
+                // probably will have to use as one thread
+                connectionHandler.requestUnitsAdresses();
                 connectionHandler.requestUnitsAdresses();
             }
         }

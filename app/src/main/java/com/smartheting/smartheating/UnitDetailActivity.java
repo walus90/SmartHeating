@@ -21,7 +21,6 @@ import org.androidannotations.annotations.ViewById;
 import heating.control.HeatingControlUnit;
 import module.control.BaseUnit;
 import module.control.UnitPropertyView;
-import module.control.UnitPropertyView_;
 
 @EActivity(R.layout.activity_unit_detail)
 public class UnitDetailActivity extends AppCompatActivity {

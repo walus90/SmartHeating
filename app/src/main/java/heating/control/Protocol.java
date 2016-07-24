@@ -5,6 +5,7 @@ import java.net.InetSocketAddress;
  * Created by Wojtek on 2016-04-03.
  */
 public class Protocol {
+
     class Header{
         // type of fields are not sure
         private int mKey;
@@ -18,6 +19,5 @@ public class Protocol {
         private int mDataSize;
         private InetSocketAddress mSurceSocket;
         private InetSocketAddress mDestinationSocket;
-
     }
 }
