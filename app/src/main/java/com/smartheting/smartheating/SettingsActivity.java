@@ -16,12 +16,17 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.PreferenceByKey;
+import org.androidannotations.annotations.PreferenceChange;
 import org.androidannotations.annotations.PreferenceClick;
 import org.androidannotations.annotations.PreferenceScreen;
+
+import java.io.File;
+import java.io.IOException;
 
 import heating.control.SaveUnitBinary;
 import module.control.UnitSaver;
@@ -42,5 +47,19 @@ public class SettingsActivity extends PreferenceActivity {
         super.onCreate(savedInstanceState);
     }
 
+    @PreferenceChange(R.string.pref_path_to_bin_units)
+    public void binPath(String newPath){
+        File p = new File(newPath);
+        if(!p.exists()){
+            Toast.makeText(this, "File does not exist, I will create it...", Toast.LENGTH_LONG);
+            try {
+                p.createNewFile();
+                Toast.makeText(this, "File created!", Toast.LENGTH_LONG);
+            } catch (IOException e) {
+                Toast.makeText(this, "Failed to create the file", Toast.LENGTH_LONG);
+                e.printStackTrace();
+            }
+        }
+    }
 
 }
