@@ -66,3 +66,6 @@ repositories {
 dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
 }
+dependencies {
+    compile 'com.android.support:appcompat-v7:23.+'
+}

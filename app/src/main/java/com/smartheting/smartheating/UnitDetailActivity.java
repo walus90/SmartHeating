@@ -25,8 +25,7 @@ import module.control.UnitPropertyView;
 @EActivity(R.layout.activity_unit_detail)
 public class UnitDetailActivity extends AppCompatActivity {
 
-    @ViewById(R.id.bSave)
-    Button bSave;
+    @ViewById(R.id.bSave) Button bSave;
     @ViewById UnitPropertyView upvId;
     @ViewById UnitPropertyView upvName;
     @ViewById UnitPropertyView upvType;

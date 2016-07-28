@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:key="@string/pref_path_to_bin_units"
+        android:defaultValue="//data//data//com.smartheting.smartheating//units"
+        android:summary="Path to a folder where information about units are stored"
+        android:text="//data//data//com.smartheting.smartheating//units"
+        android:inputType="text">
+    </EditTextPreference>
     <CheckBoxPreference
         android:defaultValue="false"
         android:key="prefTurnWifiAuto"

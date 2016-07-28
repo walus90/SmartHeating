@@ -57,11 +57,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         MainActivity.context = getApplicationContext();
         // Create the Realm configuration
-        realmConfig = new RealmConfiguration.Builder(this).build();
+        realmConfig = new RealmConfiguration.Builder(this).deleteRealmIfMigrationNeeded().build();
         // Open the Realm for the UI thread.
         realm = Realm.getInstance(realmConfig);
+        mUnitsList = new UnitsList(this);
     }
 
+    // TODO change from hotstopt to semething usefull in this version
     @Click
     public void tbHotSpot(CompoundButton compoundButton){
         if(!compoundButton.isChecked()){
@@ -130,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         RealmResults<HeatingData> allValues = realm.where(HeatingData.class).findAll();
         for(HeatingData h: allValues) {
             addedVal = "in time "+ h.getTimestamp() + " temperature is " + h.getCurrentTemperature();
-            Log.i(MainActivity_.class.getName(), addedVal);
+            Log.i(MainActivity.class.getName(), addedVal);
         }
     }
 

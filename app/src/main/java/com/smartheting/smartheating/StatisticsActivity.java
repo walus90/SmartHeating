@@ -32,7 +32,7 @@ public class StatisticsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.line_chart);
 
-        realmConfig = new RealmConfiguration.Builder(this).build();
+        realmConfig = new RealmConfiguration.Builder(this).deleteRealmIfMigrationNeeded().build();
         realm = Realm.getInstance(realmConfig);
 
         RealmResults<HeatingData> latestResults = realm.where(HeatingData.class).equalTo("unitId", 1).findAll();

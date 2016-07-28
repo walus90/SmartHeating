@@ -1,5 +1,6 @@
 package com.smartheting.smartheating;
 
+import android.preference.PreferenceActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,35 +8,48 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.androidannotations.annotations.AfterPreferences;
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
+import heating.control.HeatingPrefs_;
 import heating.control.SaveUnitBinary;
 
-@EActivity
+@EActivity(R.layout.activity_save_units)
 public class SaveUnitsActivity extends AppCompatActivity {
 
     SaveUnitBinary saver;
     @ViewById EditText etSaveUnitAdress;
-    @ViewById Button bSaveUnits;
+    @ViewById Button bSaveUnits_depricated;
+    @Pref HeatingPrefs_ prefs;
 
     String imionaUnitow = new String("");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_save_units);
+    }
+
+    @AfterViews
+    public void createSaver(){
         saver = new SaveUnitBinary();
         saver.setContext(this);
-        // looks perfect for data binding
-        etSaveUnitAdress.setText(this.getFilesDir().toString());
+        putPath();
+    }
+
+    //@AfterPreferences
+    public void putPath(){
+        String pathToBin = prefs.pathToBinUnits().get();
+        etSaveUnitAdress.setText(pathToBin);
     }
 
     @Click
-    public void bSaveUnits(View v){
+    public void bSaveUnits_depricated(View v){
         for(int i=0; i<UnitsList.getUnitList().size(); i++) {
             saver.saveUnit(UnitsList.getUnitList().get(i));
         }
-
     }
+
 }

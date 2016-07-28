@@ -2,6 +2,9 @@ package heating.control;
 
 import android.content.Context;
 
+import com.smartheting.smartheating.MainActivity;
+import com.smartheting.smartheating.MainActivity_;
+
 import org.androidannotations.annotations.EBean;
 
 import java.io.FileOutputStream;
@@ -19,6 +22,9 @@ public class SaveUnitBinary implements UnitSaver {
 
     private Context mContext;
 
+    public SaveUnitBinary(){
+        mContext = MainActivity.getAppContext();
+    }
     public void setContext(Context mContext) {
         this.mContext = mContext;
     }
