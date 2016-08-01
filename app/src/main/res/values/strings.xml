@@ -9,7 +9,7 @@
     <string name="detail_id">Id:</string>
     <string name="detail_name">Name:</string>
     <string name="edit">Edit properties</string>
-    <string name="save">Save</string>
+    <string name="save">Save changes</string>
     <string name="connect">Connect to WiFi</string>
     <string name="server">server</string>
     <string name="enter_port">Enter port</string>

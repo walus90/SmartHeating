@@ -19,6 +19,8 @@ import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
 import heating.control.HeatingControlUnit;
+import heating.control.SaveUnitBinary;
+import heating.control.SaveUnitBinary_;
 import module.control.BaseUnit;
 import module.control.UnitPropertyView;
 
@@ -74,12 +76,23 @@ public class UnitDetailActivity extends AppCompatActivity {
 
     @Click(R.id.bSave)
     public void saveChangedUnit(View view){
-        //if(edited){
+        edited = true;
             if(unitToShow instanceof HeatingControlUnit){
                 HeatingControlUnit hcu = (HeatingControlUnit)unitToShow;
                 hcu.setName(upvName.getPropertyValue());
             }
-        //}
     }
 
+    void showSaveButton(boolean v){
+        bSave.setVisibility(v ? View.VISIBLE :View.GONE);
+    }
+
+
+    // Not sure if this is right place to save units to binary
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SaveUnitBinary saveUnitBinary = new SaveUnitBinary();
+        saveUnitBinary.saveUnit(this.unitToShow);
+    }
 }

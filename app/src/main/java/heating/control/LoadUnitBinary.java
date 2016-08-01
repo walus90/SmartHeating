@@ -66,7 +66,7 @@ public class LoadUnitBinary implements UnitLoader{
         UnitsList.getUnitList().clear();
         String[] names = mContext.fileList();
         for(String s : names){
-            if(s.contains("HeatingUnit")) {
+            if(s.contains(HeatingControlUnit.TYPE)) {
                 this.setCurentFileName(s);
                 UnitsList.getUnitList().add((HeatingControlUnit) loadUnit());
             }
