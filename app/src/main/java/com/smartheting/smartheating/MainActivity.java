@@ -7,36 +7,23 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.smartheating.model.HeatingData;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.EActivity;
-
-import java.util.ArrayList;
-
-import heating.control.ConnectionHandler;
-import heating.control.HeatingControlUnit;
-import heating.control.HeatingSystemConnector;
-import heating.control.LoadUnitBinary;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
-import wifihotspotutils.WifiApManager;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
 
     public UnitsList mUnitsList = new UnitsList(this);
-    private WifiApManager wifiApManager;
     static Context context;
-    // to turn WiFi on if it was enabled before launching application
-    private boolean mFormerWifiState;
 
     private Realm realm;
     private RealmConfiguration realmConfig;
@@ -49,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
     TextView tvStatistics;
     @ViewById(R.id.tvSettings)
     TextView tvSettings;
-    @ViewById(R.id.tbHotSpot)
-    ToggleButton tbHotSpot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,19 +46,6 @@ public class MainActivity extends AppCompatActivity {
         // Open the Realm for the UI thread.
         realm = Realm.getInstance(realmConfig);
         mUnitsList = new UnitsList(this);
-    }
-
-    // TODO change from hotstopt to semething usefull in this version
-    @Click
-    public void tbHotSpot(CompoundButton compoundButton){
-        if(!compoundButton.isChecked()){
-            wifiApManager.setWifiApEnabled(wifiApManager.getWifiApConfiguration(), false);
-            Toast.makeText(MainActivity.this, "turning " + wifiApManager.getWifiApConfiguration().SSID + " off", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            wifiApManager.setWifiApEnabled(wifiApManager.getWifiApConfiguration(), true);
-            Toast.makeText(MainActivity.this, "turning " + wifiApManager.getWifiApConfiguration().SSID + " on", Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Click(R.id.tvStatistic)
