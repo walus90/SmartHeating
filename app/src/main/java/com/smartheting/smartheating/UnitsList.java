@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import heating.control.ConnectionHandler;
@@ -39,8 +40,15 @@ public class UnitsList {
             }
         }
 
-        sUnitsList.add(new HeatingControlUnit("sample", null));
-        sUnitsList.add(new HeatingControlUnit("ejemplo", null));
+        InetAddress a1 = null, a2 = null;
+        try {
+            a1 = InetAddress.getByName("127.0.0.1");
+            a2 = InetAddress.getByName("127.0.0.2");
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        sUnitsList.add(new HeatingControlUnit("sample", a1));
+        sUnitsList.add(new HeatingControlUnit("ejemplo", a2));
     }
 
     public static ArrayList<BaseUnit> getUnitList(){

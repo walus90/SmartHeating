@@ -31,6 +31,10 @@ public class UnitDetailActivity extends AppCompatActivity {
     @ViewById UnitPropertyView upvId;
     @ViewById UnitPropertyView upvName;
     @ViewById UnitPropertyView upvType;
+    @ViewById UnitPropertyView upvCurrentTemp;
+    @ViewById UnitPropertyView upvTargetTemp;
+    @ViewById UnitPropertyView upvValve;
+    @ViewById UnitPropertyView upvAdress;
 
     @Extra(UnitsActivity.UNIT_ID)
     int mUnitId;
@@ -59,10 +63,14 @@ public class UnitDetailActivity extends AppCompatActivity {
     }
 
     private void FillViewWithData(HeatingControlUnit heatingControlUnit) {
+        HeatingControlUnit hcu = (HeatingControlUnit)unitToShow;
         upvType.setView("Unit type:", HeatingControlUnit.TYPE, false);
-        upvName.setView("Unit name:", unitToShow.getName(), true);
-        upvId.setView("Id: ", Integer.toString(unitToShow.getId()), false);
-
+        upvName.setView("Unit name:", hcu.getName(), true);
+        upvId.setView("Id: ", Integer.toString(hcu.getId()), false);
+        upvCurrentTemp.setView("Current temperature [\u00b0 C]", Double.toString(hcu.getCurrentTemperature()), false);
+        upvTargetTemp.setView("Target temperature [\u00b0 C]", Double.toString(hcu.getTargetTemperature()), true);
+        upvValve.setView("Valve status", hcu.isValveOpen() ? "Open" : "Closed", false);
+        upvAdress.setView("Unit adress: ", hcu.getUnitAdress().toString(), false);
     }
 
     private void FillViewWithData(BaseUnit baseUnit) {

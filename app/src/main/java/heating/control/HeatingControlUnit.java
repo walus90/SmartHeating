@@ -16,6 +16,15 @@ public class HeatingControlUnit extends BaseUnit {
     private boolean mValveOpen;
     private double mCurrentTemperature;
     private double mTargetTemperature;
+
+    public InetAddress getUnitAdress() {
+        return mUnitAdress;
+    }
+
+    public void setUnitAdress(InetAddress mUnitAdress) {
+        this.mUnitAdress = mUnitAdress;
+    }
+
     private InetAddress mUnitAdress;
 
     public HeatingControlUnit(String name, InetAddress mUnitAdress){

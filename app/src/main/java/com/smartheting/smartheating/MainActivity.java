@@ -22,7 +22,7 @@ import io.realm.RealmResults;
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
 
-    public UnitsList mUnitsList = new UnitsList(this);
+    public UnitsList mUnitsList;
     static Context context;
 
     private Realm realm;

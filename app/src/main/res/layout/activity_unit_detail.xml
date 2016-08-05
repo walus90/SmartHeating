@@ -19,6 +19,26 @@
         android:layout_height="wrap_content"
         android:id="@+id/upvId"/>
 
+    <module.control.UnitPropertyView_
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/upvCurrentTemp"/>
+
+    <module.control.UnitPropertyView_
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/upvTargetTemp"/>
+
+    <module.control.UnitPropertyView_
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/upvValve"/>
+
+    <module.control.UnitPropertyView_
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/upvAdress"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
