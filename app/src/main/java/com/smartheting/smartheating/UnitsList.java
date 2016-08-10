@@ -1,6 +1,7 @@
 package com.smartheting.smartheating;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -15,31 +16,24 @@ import module.control.BaseUnit;
 
 /**
  * Created by Wojtek on 2016-06-22.
+ * TODO Why I don't have annotation here?!
  */
 public class UnitsList {
     public static ArrayList<BaseUnit> sUnitsList = new ArrayList<BaseUnit>();
     public static ArrayList<InetAddress> sInetAddresses = null;
-    private LoadUnitBinary mBinaryLoader;
+    //TODO think about implementing UnitLoader
+    LoadUnitBinary mBinaryLoader;
 
-    public UnitsList(Context context) {
-        mBinaryLoader = new LoadUnitBinary();
+    public UnitsList(Context context, LoadUnitBinary loadUnitBinary) {
+        // TODO injection here! Constructor injection now, see what later
+        mBinaryLoader = loadUnitBinary;
         mBinaryLoader.setContext(context);
-//        mBinaryLoader.readAllUnitsBinary();
+    }
 
-        // to go around for a now
-        boolean readingUnitsReady = false;
-        if(readingUnitsReady) {
-            if (sInetAddresses == null) {
-                //TODO handle null values
-                ConnectionHandler connectionHandler = new ConnectionHandler();
-                while (sInetAddresses == null) {
-                    // probably will have to use as one thread
-                    connectionHandler.requestUnitsAdresses();
-                    connectionHandler.requestUnitsAdresses();
-                }
-            }
-        }
-
+    /*
+    temporary method for testing purpose
+     */
+    void addSampleUnits() {
         InetAddress a1 = null, a2 = null;
         try {
             a1 = InetAddress.getByName("127.0.0.1");
@@ -49,6 +43,22 @@ public class UnitsList {
         }
         sUnitsList.add(new HeatingControlUnit("sample", a1));
         sUnitsList.add(new HeatingControlUnit("ejemplo", a2));
+    }
+
+    // should return something
+    void discoverUnits(){
+        boolean readingUnitsReady = false;
+        if(readingUnitsReady) {
+            if (sInetAddresses == null) {
+                //TODO handle null values
+                ConnectionHandler connectionHandler = new ConnectionHandler();
+                while (sInetAddresses == null) {
+                    // probably will have to use as one thread
+                    connectionHandler.requestUnitsAdresses();
+                    connectionHandler.receiveUnitList();
+                }
+            }
+        }
     }
 
     public static ArrayList<BaseUnit> getUnitList(){
@@ -84,5 +94,14 @@ public class UnitsList {
             }
         }
         return bu;
+    }
+
+    /*
+    Takes path as parameter, returns number of founded units
+     */
+    public int readUnitsFromBinary() {
+        sUnitsList = this.mBinaryLoader.readAllUnitsBinary();
+        Log.i(this.getClass().getName(), "Units restored form binary files!\n");
+        return sUnitsList.size();
     }
 }

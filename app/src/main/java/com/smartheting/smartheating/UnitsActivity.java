@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -42,9 +43,13 @@ public class UnitsActivity extends Activity {
     void generateUnitList() {
         ArrayList<String> l = new ArrayList<String>();
         ArrayList<BaseUnit> units =  UnitsList.getUnitList();
-        for(BaseUnit u : units) {
-            if(u instanceof HeatingControlUnit)
-                l.add(u.getName());
+        if(units.isEmpty()){
+            l.add("No units found");
+        }else {
+            for (BaseUnit u : units) {
+                if (u instanceof HeatingControlUnit)
+                    l.add(u.getName());
+            }
         }
         ListAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.activity_unit_overview, l);
         mUnitsLv.setAdapter(listAdapter);
@@ -58,6 +63,12 @@ public class UnitsActivity extends Activity {
         i.putExtra(UNIT_NAME, UnitsList.getUnitList().get(position).getName());
         i.putExtra(EDITABLE, false);
         startActivity(i);
+    }
+
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        generateUnitList();
     }
 
     @Override

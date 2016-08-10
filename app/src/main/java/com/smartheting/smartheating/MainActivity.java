@@ -1,7 +1,9 @@
 package com.smartheting.smartheating;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +17,11 @@ import com.smartheating.model.HeatingData;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.sharedpreferences.Pref;
+
+import heating.control.HeatingPrefs_;
+import heating.control.HeatingPrefs;
+import heating.control.LoadUnitBinary;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
@@ -25,8 +32,11 @@ public class MainActivity extends AppCompatActivity {
     public UnitsList mUnitsList;
     static Context context;
 
-    private Realm realm;
-    private RealmConfiguration realmConfig;
+    Realm realm;
+    RealmConfiguration realmConfig;
+
+    @Pref
+    HeatingPrefs_ heatingPrefs;
 
     @ViewById(R.id.tvUnit)
     TextView tvUnits;
@@ -45,7 +55,38 @@ public class MainActivity extends AppCompatActivity {
         realmConfig = new RealmConfiguration.Builder(this).deleteRealmIfMigrationNeeded().build();
         // Open the Realm for the UI thread.
         realm = Realm.getInstance(realmConfig);
-        mUnitsList = new UnitsList(this);
+        //PERFECT FOR DI
+        // first run
+        LoadUnitBinary l = new LoadUnitBinary();
+        l.setCurrentFileName(heatingPrefs.pathToBinUnits().get());
+        mUnitsList = new UnitsList(this, l);
+        // Check if there are saved units, if no ask user for discovery
+        if(mUnitsList.readUnitsFromBinary() == 0){
+            askForUnitDiscovery();
+            //mUnitsList.addSampleUnits();
+        }
+    }
+
+    void askForUnitDiscovery(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("No units found on your device, do you want to discover them now? " +
+                "You have to be connected to network with units, " +
+                "You can also do it later from Settings")
+                .setTitle("No units found")
+                .setCancelable(false)
+                .setPositiveButton("Discover now",
+                        new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int id){
+                                mUnitsList.discoverUnits();
+                            }
+                        }
+                ).setNegativeButton("Later",
+                new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int id){
+                    }
+                }).show();
     }
 
     @Click(R.id.tvStatistic)
@@ -75,13 +116,6 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.this.startActivity(configIntent);
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.settings, menu);
-        return true;
-    }
-
     // I think it is enough to add object
     public void addHeatingData(Realm realm){
         realm.executeTransaction(new Realm.Transaction(){
@@ -108,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // TODO maybe run in constructor to ensure it's not null?
     public static Context getAppContext(){
         return MainActivity.context;
     }

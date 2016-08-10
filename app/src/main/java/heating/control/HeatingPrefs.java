@@ -13,7 +13,9 @@ import org.androidannotations.annotations.sharedpreferences.SharedPref;
 @SharedPref
 public interface HeatingPrefs {
 
-    @DefaultString(value = "//data//data//com.smartheting.smartheating//units", keyRes = R.string.pref_path_to_bin_units)
+//    @DefaultString(value = "/data/data/com.smartheting.smartheating/units", keyRes = R.string.pref_path_to_bin_units)
+//    String pathToBinUnits();
+    @DefaultString(value = "/storage/sdcard0/com.smartheting.smartheating/units", keyRes = R.string.pref_path_to_bin_units)
     String pathToBinUnits();
 
     @DefaultBoolean(value = false, keyRes = R.string.pref_connect_auto)

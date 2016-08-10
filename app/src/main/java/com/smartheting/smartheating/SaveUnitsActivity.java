@@ -15,6 +15,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
+
 import heating.control.HeatingPrefs_;
 import heating.control.SaveUnitBinary;
 
@@ -26,7 +27,6 @@ public class SaveUnitsActivity extends AppCompatActivity {
     @ViewById Button bSaveUnits_depricated;
     @Pref HeatingPrefs_ prefs;
 
-    String imionaUnitow = new String("");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +36,19 @@ public class SaveUnitsActivity extends AppCompatActivity {
     public void createSaver(){
         saver = new SaveUnitBinary();
         saver.setContext(this);
+        saver.setPath(prefs.pathToBinUnits().get());
         putPath();
+        etSaveUnitAdress.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    //TODO copy files
+                    Toast.makeText(SaveUnitsActivity.this, "Units left in old location", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
-    //@AfterPreferences
     public void putPath(){
         String pathToBin = prefs.pathToBinUnits().get();
         etSaveUnitAdress.setText(pathToBin);
@@ -49,7 +58,9 @@ public class SaveUnitsActivity extends AppCompatActivity {
     public void bSaveUnits_depricated(View v){
         for(int i=0; i<UnitsList.getUnitList().size(); i++) {
             saver.saveUnit(UnitsList.getUnitList().get(i));
+            Toast.makeText(this, "Unit with id = " + i + " saved!", Toast.LENGTH_SHORT).show();
         }
+        Toast.makeText(this, "All units saved!", Toast.LENGTH_SHORT).show();
     }
 
 }

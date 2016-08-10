@@ -1,15 +1,9 @@
 package com.smartheting.smartheating;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterExtras;
 import org.androidannotations.annotations.AfterViews;
@@ -20,7 +14,6 @@ import org.androidannotations.annotations.ViewById;
 
 import heating.control.HeatingControlUnit;
 import heating.control.SaveUnitBinary;
-import heating.control.SaveUnitBinary_;
 import module.control.BaseUnit;
 import module.control.UnitPropertyView;
 
@@ -34,7 +27,7 @@ public class UnitDetailActivity extends AppCompatActivity {
     @ViewById UnitPropertyView upvCurrentTemp;
     @ViewById UnitPropertyView upvTargetTemp;
     @ViewById UnitPropertyView upvValve;
-    @ViewById UnitPropertyView upvAdress;
+    @ViewById UnitPropertyView upvAddress;
 
     @Extra(UnitsActivity.UNIT_ID)
     int mUnitId;
@@ -70,7 +63,7 @@ public class UnitDetailActivity extends AppCompatActivity {
         upvCurrentTemp.setView("Current temperature [\u00b0 C]", Double.toString(hcu.getCurrentTemperature()), false);
         upvTargetTemp.setView("Target temperature [\u00b0 C]", Double.toString(hcu.getTargetTemperature()), true);
         upvValve.setView("Valve status", hcu.isValveOpen() ? "Open" : "Closed", false);
-        upvAdress.setView("Unit adress: ", hcu.getUnitAdress().toString(), false);
+        upvAddress.setView("Unit address: ", hcu.getUnitAdress().toString(), false);
     }
 
     private void FillViewWithData(BaseUnit baseUnit) {
@@ -100,7 +93,7 @@ public class UnitDetailActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SaveUnitBinary saveUnitBinary = new SaveUnitBinary();
-        saveUnitBinary.saveUnit(this.unitToShow);
+//        SaveUnitBinary saveUnitBinary = new SaveUnitBinary();
+//        saveUnitBinary.saveUnit(this.unitToShow);
     }
 }
