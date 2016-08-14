@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import org.androidannotations.annotations.AfterExtras;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
@@ -36,8 +37,9 @@ public class UnitDetailActivity extends AppCompatActivity {
     @Extra(UnitsActivity.EDITABLE)
     boolean mEdition;
 
-    private BaseUnit unitToShow;
-    private boolean edited=false;
+    @Bean(HeatingControlUnit.class)
+    BaseUnit unitToShow;
+    boolean edited=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +62,10 @@ public class UnitDetailActivity extends AppCompatActivity {
         upvType.setView("Unit type:", HeatingControlUnit.TYPE, false);
         upvName.setView("Unit name:", hcu.getName(), true);
         upvId.setView("Id: ", Integer.toString(hcu.getId()), false);
-        upvCurrentTemp.setView("Current temperature [\u00b0 C]", Double.toString(hcu.getCurrentTemperature()), false);
-        upvTargetTemp.setView("Target temperature [\u00b0 C]", Double.toString(hcu.getTargetTemperature()), true);
+        upvCurrentTemp.setView("Current temperature [\u00b0C]", Double.toString(hcu.getCurrentTemperature()), false);
+        upvTargetTemp.setView("Target temperature [\u00b0C]", Double.toString(hcu.getTargetTemperature()), true);
         upvValve.setView("Valve status", hcu.isValveOpen() ? "Open" : "Closed", false);
-        upvAddress.setView("Unit address: ", hcu.getUnitAdress().toString(), false);
+        upvAddress.setView("Unit address: ", hcu.getUnitAddress().toString(), false);
     }
 
     private void FillViewWithData(BaseUnit baseUnit) {

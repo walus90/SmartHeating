@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
@@ -29,14 +30,13 @@ public class CheckConnectionActivity extends AppCompatActivity {
     @ViewById(R.id.etPort)
     EditText etPort;
 
-    HeatingSystemConnector mHeatingSystemConnector;
-    ConnectionHandler mConnectionHandler;
-
+    @Bean HeatingSystemConnector mHeatingSystemConnector;
+    @Bean ConnectionHandler mConnectionHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mHeatingSystemConnector = new HeatingSystemConnector(this);
+        //mHeatingSystemConnector = new HeatingSystemConnector(this);
     }
 
     @Click(R.id.bConnect)
@@ -52,7 +52,7 @@ public class CheckConnectionActivity extends AppCompatActivity {
     @Background
     @Click
     public void bSendHello(View v){
-        mConnectionHandler = new ConnectionHandler();
+        //mConnectionHandler = new ConnectionHandler();
         mConnectionHandler.setServerIp(this.etIp.getText().toString());
         mConnectionHandler.setHeatingPort(Integer.parseInt(etPort.getText().toString()));
         mConnectionHandler.connectWithUnit();

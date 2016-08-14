@@ -6,6 +6,7 @@ import android.util.Log;
 import com.smartheting.smartheating.MainActivity;
 
 import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.RootContext;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,8 +23,18 @@ import module.control.UnitLoader;
 @EBean
 public class LoadUnitBinary implements UnitLoader{
 
+    @RootContext
     Context mContext;
     String mCurrentFileName;
+    String mPathToFiles;
+
+    public String getPathToFiles() {
+        return mPathToFiles;
+    }
+
+    public void setPathToFiles(String mPathToFiles) {
+        this.mPathToFiles = mPathToFiles;
+    }
 
     public void setContext(Context mContext) {
         this.mContext = mContext;
@@ -33,7 +44,7 @@ public class LoadUnitBinary implements UnitLoader{
     }
 
     public LoadUnitBinary() {
-        mContext = MainActivity.getAppContext();
+
     }
 
     // An @EBean annotated class must have only one constructor!!!
@@ -47,13 +58,14 @@ public class LoadUnitBinary implements UnitLoader{
         if(mCurrentFileName ==null){
             Log.e(LoadUnitBinary.class.toString(), "Problem with file name!");
         }
-        HeatingControlUnit readedUnit = null;
+        HeatingControlUnit readUnit = null;
         FileInputStream fis = null;
         ObjectInputStream is = null;
         try {
             fis = mContext.openFileInput(mCurrentFileName);
             is = new ObjectInputStream(fis);
-            readedUnit = (HeatingControlUnit)is.readObject();
+            //set SUID?
+            readUnit = (HeatingControlUnit)is.readObject();
             if(is!=null)
                 is.close();
             if(fis!=null)
@@ -63,20 +75,21 @@ public class LoadUnitBinary implements UnitLoader{
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return readedUnit;
+        return readUnit;
     }
 
     // sets all units in list
     public ArrayList<BaseUnit> readAllUnitsBinary(){
         ArrayList<BaseUnit> unitsFormBin = new ArrayList<>();
-        File dirWithBins = new File(this.mCurrentFileName);
+        // TODO I scew up here!!!
+        File dirWithBins = new File(getPathToFiles());
         //String[] names = mContext.fileList();
         String[] names = dirWithBins.list();
         if(names!=null) {
             for (String s : names) {
                 if (s.contains(HeatingControlUnit.TYPE)) {
                     this.setCurrentFileName(s);
-                    unitsFormBin.add((HeatingControlUnit) loadUnit());
+                    unitsFormBin.add((HeatingControlUnit)loadUnit());
                 }
             }
         }

@@ -15,7 +15,7 @@
     <string name="enter_port">Enter port</string>
     <string name="enter_ip">Enter ip</string>
     <string name="check_connection">Check connection</string>
-    <string name="save_unit_adress"></string>
+    <string name="save_unit_address"></string>
     <string name="save_heating_units">Save heating units</string>
     <string name="storing_units">Storing heating units</string>
     <string name="pref_wifi_auto_summary">Connect to WiFi network afrer launch of application</string>

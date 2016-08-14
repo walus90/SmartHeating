@@ -3,6 +3,9 @@ package com.smartheting.smartheating;
 import android.content.Context;
 import android.util.Log;
 
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
+
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -16,18 +19,23 @@ import module.control.BaseUnit;
 
 /**
  * Created by Wojtek on 2016-06-22.
- * TODO Why I don't have annotation here?!
  */
+@EBean(scope = EBean.Scope.Singleton)
 public class UnitsList {
     public static ArrayList<BaseUnit> sUnitsList = new ArrayList<BaseUnit>();
     public static ArrayList<InetAddress> sInetAddresses = null;
     //TODO think about implementing UnitLoader
-    LoadUnitBinary mBinaryLoader;
+    @Bean LoadUnitBinary mBinaryLoader;
 
-    public UnitsList(Context context, LoadUnitBinary loadUnitBinary) {
-        // TODO injection here! Constructor injection now, see what later
-        mBinaryLoader = loadUnitBinary;
-        mBinaryLoader.setContext(context);
+    @Bean
+    public void setLoader(LoadUnitBinary loader){
+        loader.setCurrentFileName("");
+        if(MainActivity_.getAppContext()!=null) {
+            loader.setContext(MainActivity_.getAppContext());
+        }
+    }
+
+    public UnitsList() {
     }
 
     /*
@@ -41,8 +49,11 @@ public class UnitsList {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        sUnitsList.add(new HeatingControlUnit("sample", a1));
-        sUnitsList.add(new HeatingControlUnit("ejemplo", a2));
+        HeatingControlUnit u1 = new HeatingControlUnit(), u2 = new HeatingControlUnit();
+        u1.setName("sample"); u1.setUnitAdress(a1);
+        u2.setName("przyklad"); u2.setUnitAdress(a2);
+        sUnitsList.add(u1);
+        sUnitsList.add(u2);
     }
 
     // should return something

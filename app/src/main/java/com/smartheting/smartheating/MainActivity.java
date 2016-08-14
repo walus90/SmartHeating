@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import com.smartheating.model.HeatingData;
 
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.EActivity;
@@ -25,10 +28,15 @@ import heating.control.LoadUnitBinary;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
+import module.control.UnitLoader;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
 
+    @Bean(LoadUnitBinary.class)
+    UnitLoader loader;
+
+    @Bean
     public UnitsList mUnitsList;
     static Context context;
 
@@ -57,14 +65,28 @@ public class MainActivity extends AppCompatActivity {
         realm = Realm.getInstance(realmConfig);
         //PERFECT FOR DI
         // first run
-        LoadUnitBinary l = new LoadUnitBinary();
-        l.setCurrentFileName(heatingPrefs.pathToBinUnits().get());
-        mUnitsList = new UnitsList(this, l);
+//        LoadUnitBinary l = new LoadUnitBinary();
+//        l.setCurrentFileName(heatingPrefs.pathToBinUnits().get());
+        //mUnitsList = new UnitsList(this, l);
+    }
+
+    @AfterInject
+    void loadUnits() {
+        ((LoadUnitBinary)loader).setPathToFiles(heatingPrefs.pathToBinUnits().get());
+        mUnitsList.setLoader((LoadUnitBinary) loader);
+        // not sure whats going on
+        mUnitsList.mBinaryLoader.setPathToFiles(heatingPrefs.pathToBinUnits().get());
         // Check if there are saved units, if no ask user for discovery
-        if(mUnitsList.readUnitsFromBinary() == 0){
-            askForUnitDiscovery();
-            //mUnitsList.addSampleUnits();
+        if (mUnitsList.readUnitsFromBinary() == 0) {
+            //askForUnitDiscovery();
+            mUnitsList.addSampleUnits();
         }
+    }
+
+    @Bean
+    void setPathUnits(UnitsList unitsList){
+//        ((LoadUnitBinary)loader).setPathToFiles(heatingPrefs.pathToBinUnits().get());
+//        unitsList.setLoader((LoadUnitBinary) loader);
     }
 
     void askForUnitDiscovery(){

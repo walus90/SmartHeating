@@ -100,7 +100,7 @@ public class ConnectionHandler implements DataHandler{
         try {
             DatagramSocket ds = new DatagramSocket();
             ds.setBroadcast(true);
-            // according to instructions, empty message is sent to get list of adresses
+            // according to instructions, empty message is sent to get list of addresses
             byte[] emptyData = new byte[0];
             int port = mHeatingPort;
             DatagramPacket datagramPacket = new DatagramPacket(emptyData, emptyData.length, getBroadcastAddress(), port);
@@ -151,8 +151,8 @@ public class ConnectionHandler implements DataHandler{
         InetAddress address;
         byte[] bytesOfAdress;
         for(int i = 0; i<numerOfLocals; i++){
-            int begining = totalHeaderSize+i*4, end = totalHeaderSize+i*4+4;
-            bytesOfAdress = Arrays.copyOfRange(rawData, begining, end);
+            int beginning = totalHeaderSize+i*4, end = totalHeaderSize+i*4+4;
+            bytesOfAdress = Arrays.copyOfRange(rawData, beginning, end);
             try {
                 address = Inet4Address.getByAddress(bytesOfAdress);
                 locals.add(address);

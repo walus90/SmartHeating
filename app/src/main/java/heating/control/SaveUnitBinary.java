@@ -73,6 +73,6 @@ public class SaveUnitBinary implements UnitSaver {
         }else{
             Log.i(this.getClass().getName(), "Unknown type of unit\n");
         }
-
     }
+
 }

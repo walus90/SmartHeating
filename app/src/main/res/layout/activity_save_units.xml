@@ -12,11 +12,11 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/etSaveUnitAdress"
+        android:id="@+id/etSaveUnitAddress"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="@string/save_unit_adress" />
+        android:text="@string/save_unit_address" />
 
     <Button
         android:layout_width="wrap_content"
