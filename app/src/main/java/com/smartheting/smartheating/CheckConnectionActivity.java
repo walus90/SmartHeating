@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
@@ -31,7 +30,8 @@ public class CheckConnectionActivity extends AppCompatActivity {
     EditText etPort;
 
     @Bean HeatingSystemConnector mHeatingSystemConnector;
-    @Bean ConnectionHandler mConnectionHandler;
+    @Bean
+    ConnectionHandler mConnectionHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +56,6 @@ public class CheckConnectionActivity extends AppCompatActivity {
         mConnectionHandler.setServerIp(this.etIp.getText().toString());
         mConnectionHandler.setHeatingPort(Integer.parseInt(etPort.getText().toString()));
         mConnectionHandler.connectWithUnit();
-        mConnectionHandler.sendData();
+        mConnectionHandler.sendData("Hello".getBytes());
     }
 }

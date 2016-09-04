@@ -12,7 +12,7 @@ public abstract class BaseUnit implements java.io.Serializable{
 
     protected static int sMaxId =0;
     //unchanged mId of unit
-    protected int mId;
+    final protected int mId = sMaxId++;
     protected String mName;
 
     public String getName() {

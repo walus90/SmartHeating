@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <EditTextPreference
-        android:key="@string/pref_path_to_bin_units"
-        android:defaultValue="//data//data//com.smartheting.smartheating//units"
+        android:key="@string/pref_save_unit_address"
+        android:defaultValue="@string/def_path_to_bin_units"
         android:summary="Path to a folder where information about units are stored"
-        android:text="//data//data//com.smartheting.smartheating//units"
+        android:text="@string/def_path_to_bin_units"
         android:inputType="text">
     </EditTextPreference>
     <CheckBoxPreference
@@ -13,4 +13,13 @@
         android:summary="@string/pref_wifi_auto_summary"
         android:title="@string/pref_connect_auto" >
     </CheckBoxPreference>
+    <ListPreference
+        android:title="Temperature units"
+        android:summary="Select temperature units"
+        android:key="@string/pref_chose_scale"
+        android:entries="@array/scale"
+        android:entryValues="@array/scale_values"
+        android:defaultValue="C">
+    </ListPreference>
+
 </PreferenceScreen>

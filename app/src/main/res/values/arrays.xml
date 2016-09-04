@@ -1,0 +1,22 @@
+<resources>
+    <string-array name="empty">
+    </string-array>
+    <string-array name="scale">
+        <item>Celsius</item>
+        <item>Fahrenheit</item>
+   </string-array>
+    <string-array name="scale_values">
+        <item>C</item>
+        <item>F</item>
+    </string-array>
+    <string-array name="data_type">
+        <item>Temperature</item>
+        <item>Humidity</item>
+    </string-array>
+    <string-array name="data_type_values">
+        <item>Temperature</item>
+        <item>Humidity</item>
+    </string-array>
+
+
+</resources>

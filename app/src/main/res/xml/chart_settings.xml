@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:title="Data type"
+        android:summary="Select kind of data viewed on chart"
+        android:key="@string/pref_data_type_to_show"
+        android:entries="@array/data_type"
+        android:entryValues="@array/data_type_values"
+        android:defaultValue="Temp">
+    </ListPreference>
+    <CheckBoxPreference
+        android:key="@string/pref_show_target"
+        android:title="@string/pref_show_target" >
+    </CheckBoxPreference>
+    <MultiSelectListPreference
+        android:key="@string/pref_units_on_chart"
+        android:title="@string/chose_units_on_chart"
+        >
+    </MultiSelectListPreference>
+
+</PreferenceScreen>

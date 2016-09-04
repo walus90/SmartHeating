@@ -3,10 +3,9 @@ package heating.control;
 import android.content.Context;
 import android.util.Log;
 
-import com.smartheting.smartheating.MainActivity;
-
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,16 +14,20 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 import module.control.BaseUnit;
-import module.control.UnitLoader;
+import module.control.IUnitLoader;
 
 /**
  * Created by Wojtek on 2016-06-01.
  */
 @EBean
-public class LoadUnitBinary implements UnitLoader{
+public class LoadUnitBinary implements IUnitLoader {
+
+    @Pref
+    HeatingPrefs_ heatingPrefs;
 
     @RootContext
     Context mContext;
+    // should be private
     String mCurrentFileName;
     String mPathToFiles;
 
@@ -41,6 +44,8 @@ public class LoadUnitBinary implements UnitLoader{
     }
     public void setCurrentFileName(String currentFileName) {
         this.mCurrentFileName = currentFileName;
+        String pathBin = heatingPrefs.pathToBinUnits().get();
+        setPathToFiles(pathBin);
     }
 
     public LoadUnitBinary() {
@@ -54,7 +59,10 @@ public class LoadUnitBinary implements UnitLoader{
 //    }
 
     @Override
-    public BaseUnit loadUnit() {
+    public BaseUnit loadUnit(String unitName) {
+
+        // assigned just for testing
+        mCurrentFileName = unitName;
         if(mCurrentFileName ==null){
             Log.e(LoadUnitBinary.class.toString(), "Problem with file name!");
         }
@@ -62,18 +70,21 @@ public class LoadUnitBinary implements UnitLoader{
         FileInputStream fis = null;
         ObjectInputStream is = null;
         try {
-            fis = mContext.openFileInput(mCurrentFileName);
+            File file = new File(getPathToFiles()+File.separator+unitName);
+            fis = new FileInputStream(file);
+            //fis = mContext.openFileInput(mCurrentFileName);
             is = new ObjectInputStream(fis);
             //set SUID?
             readUnit = (HeatingControlUnit)is.readObject();
-            if(is!=null)
-                is.close();
+            is.close();
             if(fis!=null)
                 fis.close();
         } catch (IOException e) {
             e.printStackTrace();
+            Log.i(LoadUnitBinary_.class.getName(), e.getMessage());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            Log.i(LoadUnitBinary_.class.getName(), e.getMessage());
         }
         return readUnit;
     }
@@ -81,15 +92,17 @@ public class LoadUnitBinary implements UnitLoader{
     // sets all units in list
     public ArrayList<BaseUnit> readAllUnitsBinary(){
         ArrayList<BaseUnit> unitsFormBin = new ArrayList<>();
-        // TODO I scew up here!!!
         File dirWithBins = new File(getPathToFiles());
-        //String[] names = mContext.fileList();
         String[] names = dirWithBins.list();
         if(names!=null) {
             for (String s : names) {
                 if (s.contains(HeatingControlUnit.TYPE)) {
+                    // base class has no parameters, so need to set here
                     this.setCurrentFileName(s);
-                    unitsFormBin.add((HeatingControlUnit)loadUnit());
+                    HeatingControlUnit hcuToAdd = (HeatingControlUnit)loadUnit(s);
+                    //check if not null
+                    if(hcuToAdd != null)
+                        unitsFormBin.add(hcuToAdd);
                 }
             }
         }

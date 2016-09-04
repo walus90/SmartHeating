@@ -23,15 +23,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/configuration"
-        android:id="@+id/tvConfiguration"
-        android:enabled="true"
-        android:clickable="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/statistics"
         android:id="@+id/tvStatistic"
         android:clickable="true"
@@ -45,5 +36,14 @@
         android:id="@+id/tvSettings"
         android:clickable="true"
         android:enabled="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/configuration"
+        android:id="@+id/tvConfiguration"
+        android:enabled="true"
+        android:clickable="true" />
 
 </LinearLayout>

@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">SmartHeating</string>
     <string name="units">Show units</string>
-    <string name="configuration">Configuration</string>
+    <string name="configuration">Advanced Configuration</string>
     <string name="statistics">Show statistics</string>
-    <string name="settings">Settings</string>
+    <string name="settings">Application Settings</string>
     <string name="hotspot_off">Off</string>
     <string name="hotspot_on">On</string>
     <string name="detail_id">Id:</string>
@@ -15,14 +15,21 @@
     <string name="enter_port">Enter port</string>
     <string name="enter_ip">Enter ip</string>
     <string name="check_connection">Check connection</string>
-    <string name="save_unit_address"></string>
+    <string name="pref_save_unit_address">Path to save binary units</string>
     <string name="save_heating_units">Save heating units</string>
     <string name="storing_units">Storing heating units</string>
     <string name="pref_wifi_auto_summary">Connect to WiFi network afrer launch of application</string>
     <string name="pref_connect_auto">Connect to WiFi automatically</string>
     <string name="menu_settings">Settings</string>
     <string name="edit_property">Edit</string>
-    <string name="pref_path_to_bin_units">/data/data/com.smartheting.smartheating/units</string>
+    <string name="def_path_to_bin_units">/data/data/com.smartheting.smartheating/units</string>
     <string name="enter_wifi_name">Enter WiFi network name</string>
     <string name="enter_wifi_password">Enter WiFi password</string>
+    <string name="chart_options">Chart options</string>
+    <string name="pref_show_target">Show target value</string>
+    <string name="pref_units_on_chart">"Units to show on chart"</string>
+    <string name="chose_units_on_chart">Chose units to print on chart</string>
+    <string name="pref_chose_scale">Scale of temperature</string>
+    <string name="refresh_chart">Refresh</string>
+    <string name="pref_data_type_to_show">Data type to show on chart</string>
 </resources>

@@ -59,8 +59,9 @@ public class UnitsActivity extends Activity {
     @ItemClick(R.id.lvUnits)
     public void onItemClick(int position) {
         Intent i = new Intent(UnitsActivity.this, UnitDetailActivity_.class);
-        i.putExtra(UNIT_ID, UnitsList.getUnitList().get(position).getId());
-        i.putExtra(UNIT_NAME, UnitsList.getUnitList().get(position).getName());
+        HeatingControlUnit h = (HeatingControlUnit)UnitsList.getUnitList().get(position);
+        i.putExtra(UNIT_ID, h.getId());
+        i.putExtra(UNIT_NAME, h.getName());
         i.putExtra(EDITABLE, false);
         startActivity(i);
     }

@@ -1,24 +1,17 @@
 package heating.control;
 
 import android.content.Context;
-import android.net.DhcpInfo;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
-import android.os.StrictMode;
 import android.util.Log;
 import android.widget.Toast;
 
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EBean;
 
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketException;
 import java.util.List;
 
-import module.control.ConnectionEstablisher;
+import module.control.IConnectionEstablisher;
 
 /**
  * Created by Wojtek on 2016-05-03.
@@ -28,7 +21,7 @@ import module.control.ConnectionEstablisher;
 
 //todo change name to HeatingNetworkConnector or something similar
 @EBean
-public class HeatingSystemConnector implements ConnectionEstablisher {
+public class HeatingSystemConnector implements IConnectionEstablisher {
 
     // need to be set up at first run, also possible to change them
     String mNtworkSSID = "Waliszek";

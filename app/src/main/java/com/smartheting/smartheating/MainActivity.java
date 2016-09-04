@@ -7,34 +7,39 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.smartheating.model.HeatingData;
+import com.smartheating.model.HumidityData;
 
 import org.androidannotations.annotations.AfterInject;
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.sharedpreferences.Pref;
+import org.mockito.InjectMocks;
 
+import java.util.Calendar;
+
+import heating.control.ConnectionHandler;
 import heating.control.HeatingPrefs_;
-import heating.control.HeatingPrefs;
 import heating.control.LoadUnitBinary;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import io.realm.RealmResults;
-import module.control.UnitLoader;
+import module.control.IDataHandler;
+import module.control.IUnitLoader;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
 
+    @InjectMocks
+    IDataHandler mockIDataHandler = new ConnectionHandler();
+
     @Bean(LoadUnitBinary.class)
-    UnitLoader loader;
+    IUnitLoader loader;
 
     @Bean
     public UnitsList mUnitsList;
@@ -61,21 +66,23 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.context = getApplicationContext();
         // Create the Realm configuration
         realmConfig = new RealmConfiguration.Builder(this).deleteRealmIfMigrationNeeded().build();
+        Realm.setDefaultConfiguration(realmConfig);
         // Open the Realm for the UI thread.
-        realm = Realm.getInstance(realmConfig);
-        //PERFECT FOR DI
-        // first run
-//        LoadUnitBinary l = new LoadUnitBinary();
-//        l.setCurrentFileName(heatingPrefs.pathToBinUnits().get());
-        //mUnitsList = new UnitsList(this, l);
+        //realm = Realm.getInstance(realmConfig);
+        realm = Realm.getDefaultInstance();
+        // sample data
+        clearDefaultRealm();
+        addHeatingData(realm);
+        addHumidityData(realm);
     }
 
     @AfterInject
     void loadUnits() {
-        ((LoadUnitBinary)loader).setPathToFiles(heatingPrefs.pathToBinUnits().get());
+        Log.i(MainActivity_.class.getName(), heatingPrefs.pathToBinUnits().get());
+        String pathBin = heatingPrefs.pathToBinUnits().get();
+        ((LoadUnitBinary)loader).setPathToFiles(pathBin);
         mUnitsList.setLoader((LoadUnitBinary) loader);
-        // not sure whats going on
-        mUnitsList.mBinaryLoader.setPathToFiles(heatingPrefs.pathToBinUnits().get());
+        mUnitsList.mBinaryLoader.setPathToFiles(pathBin);
         // Check if there are saved units, if no ask user for discovery
         if (mUnitsList.readUnitsFromBinary() == 0) {
             //askForUnitDiscovery();
@@ -116,8 +123,6 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Statistic", Toast.LENGTH_SHORT).show();
         Intent statisticIntent = new Intent(this, StatisticsActivity_.class);
         startActivity(statisticIntent);
-        addHeatingData(realm);
-        showRecord(realm);
     }
 
     @Click(R.id.tvSettings)
@@ -128,40 +133,71 @@ public class MainActivity extends AppCompatActivity {
 
     @Click(R.id.tvUnit)
     public void unitActiv(View v){
-        Intent showIntent = new Intent(MainActivity.this, UnitsActivity_.class);
-        MainActivity.this.startActivity(showIntent);
+        Intent showIntent = new Intent(this, UnitsActivity_.class);
+        startActivity(showIntent);
     }
 
     @Click(R.id.tvConfiguration)
     public void tvConfiguration(View v){
         Intent configIntent = new Intent(this, ConfigurationActivity_.class);
-        MainActivity.this.startActivity(configIntent);
+        startActivity(configIntent);
     }
 
-    // I think it is enough to add object
-    public void addHeatingData(Realm realm){
-        realm.executeTransaction(new Realm.Transaction(){
+    private void clearDefaultRealm(){
+        this.realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                HeatingData heatingData = realm.createObject(HeatingData.class);
-                heatingData.setCurrentTemperature(23.7);
-                // not sure about the time
-                Long tsLong = System.currentTimeMillis()/1000;
-                heatingData.setTimestamp(tsLong);
-                heatingData.setUnitId(1);
+                realm.deleteAll();
             }
         });
     }
 
-    public void showRecord(Realm realm){
-        HeatingData heatingData = realm.where(HeatingData.class).findFirst();
-        String addedVal = "in time "+ heatingData.getTimestamp() + " temperature is " + heatingData.getCurrentTemperature();
-        Toast.makeText(this, addedVal,Toast.LENGTH_SHORT).show();
-        RealmResults<HeatingData> allValues = realm.where(HeatingData.class).findAll();
-        for(HeatingData h: allValues) {
-            addedVal = "in time "+ h.getTimestamp() + " temperature is " + h.getCurrentTemperature();
-            Log.i(MainActivity.class.getName(), addedVal);
-        }
+    public void addHeatingData(Realm realm){
+        realm.executeTransaction(new Realm.Transaction(){
+            @Override
+            public void execute(Realm realm) {
+                int numberOfSamples = 23;
+                double minimum = 22, maximum = 28;
+                // add sample data for all units
+                for(int j=0; j<mUnitsList.getUnitList().size(); j++) {
+                    for (int i = 1; i < numberOfSamples; i++) {
+                        HeatingData heatingData = realm.createObject(HeatingData.class);
+                        double val = minimum + Math.random() * (maximum - minimum);
+                        double targetVal = val + 3*(Math.random()-0.5);
+                        heatingData.setCurrentTemperature(val);
+                        heatingData.setTargetTemperature(targetVal);
+                        Calendar c = Calendar.getInstance();
+                        c.set(2016, 8, 1, i, 0);
+                        heatingData.setDate(c.getTime());
+                        heatingData.setUnitId(j);
+                        realm.copyToRealm(heatingData);
+                    }
+                }
+            }
+        });
+    }
+
+    public void addHumidityData(Realm realm){
+        realm.executeTransaction(new Realm.Transaction(){
+            @Override
+            public void execute(Realm realm) {
+                int numberOfSamples = 23;
+                double minimum = 35, maximum = 60;
+                // add sample data for all units
+                for(int j=0; j<mUnitsList.getUnitList().size(); j++) {
+                    for (int i = 1; i < numberOfSamples; i++) {
+                        HumidityData humidityData = realm.createObject(HumidityData.class);
+                        double val = minimum + Math.random() * (maximum - minimum);
+                        humidityData.setCurrentHumidity(val);
+                        Calendar c = Calendar.getInstance();
+                        c.set(2016, 8, 1, i, 0);
+                        humidityData.setDate(c.getTime());
+                        humidityData.setUnitId(j);
+                        realm.copyToRealm(humidityData);
+                    }
+                }
+            }
+        });
     }
 
     // TODO maybe run in constructor to ensure it's not null?

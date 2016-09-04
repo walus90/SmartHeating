@@ -13,23 +13,23 @@ import module.control.BaseUnit;
 public class HeatingControlUnit extends BaseUnit implements java.io.Serializable{
     static final long serialVersionUID = 201608131229L;
 
-    public static final String TYPE = "Heating unit";
+    public static final String TYPE = "Heating_unit";
     // indicates if there are specific data for heating unit, maybe only for Local
     private boolean mAdvice;
     private boolean mValveOpen;
     private double mCurrentTemperature;
     private double mTargetTemperature;
-    private InetAddress mUnitAdress;
+    private double mCurrentHumidity;
+    private InetAddress mUnitAddress;
 
     public InetAddress getUnitAddress() {
-        return mUnitAdress;
+        return mUnitAddress;
     }
-    public void setUnitAdress(InetAddress mUnitAdress) {
-        this.mUnitAdress = mUnitAdress;
+    public void setUnitAddress(InetAddress mUnitAddress) {
+        this.mUnitAddress = mUnitAddress;
     }
 
     public HeatingControlUnit(){
-
     }
 
 //    public HeatingControlUnit(String name, InetAddress mUnitAdress){
@@ -37,7 +37,7 @@ public class HeatingControlUnit extends BaseUnit implements java.io.Serializable
 //        this.mId = BaseUnit.sMaxId++;
 //        this.mName = name;
 //    }
-    public String getName() { return mName; }
+    //public String getName() { return mName; }
     public void setName(String name) { this.mName = name; };
     public int getId() { return mId; }
 
@@ -72,4 +72,13 @@ public class HeatingControlUnit extends BaseUnit implements java.io.Serializable
     public void setTargetTemperature(double mTargetTemperature) {
         this.mTargetTemperature = mTargetTemperature;
     }
+
+    public double getmCurrentHumidity() {
+        return mCurrentHumidity;
+    }
+
+    public void setmCurrentHumidity(double mCurrentHumidity) {
+        this.mCurrentHumidity = mCurrentHumidity;
+    }
+
 }

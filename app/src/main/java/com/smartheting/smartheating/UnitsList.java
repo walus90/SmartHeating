@@ -1,19 +1,16 @@
 package com.smartheting.smartheating;
 
-import android.content.Context;
 import android.util.Log;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import heating.control.ConnectionHandler;
 import heating.control.HeatingControlUnit;
-import heating.control.HeatingSystemConnector;
 import heating.control.LoadUnitBinary;
 import module.control.BaseUnit;
 
@@ -24,7 +21,7 @@ import module.control.BaseUnit;
 public class UnitsList {
     public static ArrayList<BaseUnit> sUnitsList = new ArrayList<BaseUnit>();
     public static ArrayList<InetAddress> sInetAddresses = null;
-    //TODO think about implementing UnitLoader
+    //TODO think about implementing IUnitLoader
     @Bean LoadUnitBinary mBinaryLoader;
 
     @Bean
@@ -50,8 +47,8 @@ public class UnitsList {
             e.printStackTrace();
         }
         HeatingControlUnit u1 = new HeatingControlUnit(), u2 = new HeatingControlUnit();
-        u1.setName("sample"); u1.setUnitAdress(a1);
-        u2.setName("przyklad"); u2.setUnitAdress(a2);
+        u1.setName("sample"); u1.setUnitAddress(a1);
+        u2.setName("przyklad"); u2.setUnitAddress(a2);
         sUnitsList.add(u1);
         sUnitsList.add(u2);
     }
@@ -89,6 +86,11 @@ public class UnitsList {
         return valid;
     }
 
+    // Central unit is always on first place
+    public BaseUnit getCentralUnit(){
+        return getUnitList().get(0);
+    }
+
     /*
     todo think about own exception, when there is no unit
      */
@@ -111,6 +113,7 @@ public class UnitsList {
     Takes path as parameter, returns number of founded units
      */
     public int readUnitsFromBinary() {
+        sUnitsList.clear();
         sUnitsList = this.mBinaryLoader.readAllUnitsBinary();
         Log.i(this.getClass().getName(), "Units restored form binary files!\n");
         return sUnitsList.size();

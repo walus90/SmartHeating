@@ -4,21 +4,25 @@ import com.smartheting.smartheating.R;
 
 import org.androidannotations.annotations.sharedpreferences.DefaultBoolean;
 import org.androidannotations.annotations.sharedpreferences.DefaultString;
+import org.androidannotations.annotations.sharedpreferences.DefaultStringSet;
 import org.androidannotations.annotations.sharedpreferences.SharedPref;
+
+import java.util.Set;
 
 /**
  * Created by Wojtek on 2016-07-26.
  */
 
-@SharedPref
+@SharedPref(value=SharedPref.Scope.UNIQUE)
 public interface HeatingPrefs {
 
-//    @DefaultString(value = "/data/data/com.smartheting.smartheating/units", keyRes = R.string.pref_path_to_bin_units)
-//    String pathToBinUnits();
-    @DefaultString(value = "/storage/sdcard0/com.smartheting.smartheating/units", keyRes = R.string.pref_path_to_bin_units)
+    @DefaultString(value = "/data/data/com.smartheting.smartheating/files", keyRes = R.string.pref_save_unit_address)
     String pathToBinUnits();
 
     @DefaultBoolean(value = false, keyRes = R.string.pref_connect_auto)
     boolean connectAuto();
+
+    @DefaultStringSet(value = {"Celsius", "Fahrenheit"}, keyRes = R.string.pref_chose_scale)
+    Set<String> temperatureScale();
 
 }

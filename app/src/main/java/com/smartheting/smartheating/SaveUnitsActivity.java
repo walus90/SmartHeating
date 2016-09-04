@@ -1,7 +1,10 @@
 package com.smartheting.smartheating;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,7 +27,7 @@ public class SaveUnitsActivity extends AppCompatActivity {
     SaveUnitBinary saver;
     @ViewById EditText etSaveUnitAddress;
     @ViewById Button bSaveUnits_depricated;
-    @Pref HeatingPrefs_ prefs;
+    @Pref HeatingPrefs_ heatingPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,6 @@ public class SaveUnitsActivity extends AppCompatActivity {
     public void createSaver(){
         saver = new SaveUnitBinary();
         saver.setContext(this);
-        saver.setPath(prefs.pathToBinUnits().get());
         putPath();
         etSaveUnitAddress.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -49,12 +51,17 @@ public class SaveUnitsActivity extends AppCompatActivity {
     }
 
     public void putPath(){
-        String pathToBin = prefs.pathToBinUnits().get();
+//        SharedPreferences sp = getSharedPreferences(SettingsActivity_.SETTINGS_NAME, Context.MODE_PRIVATE);
+//        String pathToBin = sp.getString(SettingsActivity_.BIN_PATH_KEY, "");
+        String pathToBin = heatingPrefs.pathToBinUnits().get();
+        Log.i(SettingsActivity.class.toString(), "Bin path: " + pathToBin);
         etSaveUnitAddress.setText(pathToBin);
+        saver.setPath(pathToBin);
     }
 
     @Click
     public void bSaveUnits_depricated(View v){
+        // path is set in putPath in @AfterViews
         for(int i=0; i<UnitsList.getUnitList().size(); i++) {
             saver.saveUnit((HeatingControlUnit)UnitsList.getUnitList().get(i));
             Toast.makeText(this, "Unit with id = " + i + " saved!", Toast.LENGTH_SHORT).show();
