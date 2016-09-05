@@ -34,6 +34,7 @@ public class ChartOptionsActivity extends PreferenceActivity {
     @PreferenceByKey(R.string.pref_show_target)
     CheckBoxPreference showTarget;
 
+    public static final String PREF_UNITS_ON_CHART = "Units to show on chart";
     @PreferenceByKey(R.string.pref_units_on_chart)
     MultiSelectListPreference unitsOnChart;
 

@@ -2,6 +2,10 @@ package heating.control;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.smartheting.smartheating.MainActivity_;
+import com.smartheting.smartheating.UnitsList_;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
@@ -19,7 +23,7 @@ import module.control.IUnitLoader;
 /**
  * Created by Wojtek on 2016-06-01.
  */
-@EBean
+@EBean(scope = EBean.Scope.Singleton)
 public class LoadUnitBinary implements IUnitLoader {
 
     @Pref
@@ -107,6 +111,25 @@ public class LoadUnitBinary implements IUnitLoader {
             }
         }
         return unitsFormBin;
+    }
+
+    public void deleteAllBinariesUnits(){
+        File dirWithBins = new File(getPathToFiles());
+        String[] names = dirWithBins.list();
+        if(names!=null) {
+            for (String s : names) {
+                if (s.contains(HeatingControlUnit.TYPE)) {
+                    String numToRemove = s.substring(s.length()-1);
+                    UnitsList_.getUnitList().remove(Integer.valueOf(numToRemove));
+                    File binToRemove = new File(dirWithBins+File.separator+s);
+                    boolean stat = binToRemove.delete();
+                    if(!stat) {
+                        Log.i(LoadUnitBinary_.class.toString(), "Problem with removing file");
+                        Toast.makeText(MainActivity_.getAppContext(), "Problem with removing file", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        }
     }
 
 }

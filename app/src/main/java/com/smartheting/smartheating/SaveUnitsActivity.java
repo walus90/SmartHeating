@@ -1,7 +1,9 @@
 package com.smartheting.smartheating;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
@@ -19,14 +22,20 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import heating.control.HeatingControlUnit;
 import heating.control.HeatingPrefs_;
+import heating.control.LoadUnitBinary;
 import heating.control.SaveUnitBinary;
+import module.control.IUnitLoader;
 
 @EActivity(R.layout.activity_save_units)
 public class SaveUnitsActivity extends AppCompatActivity {
 
+    @Bean
+    LoadUnitBinary loader;
+
     SaveUnitBinary saver;
     @ViewById EditText etSaveUnitAddress;
-    @ViewById Button bSaveUnits_depricated;
+    @ViewById Button bSaveUnitsBin;
+    @ViewById Button bDeleteUnitsBin;
     @Pref HeatingPrefs_ heatingPrefs;
 
     @Override
@@ -60,13 +69,38 @@ public class SaveUnitsActivity extends AppCompatActivity {
     }
 
     @Click
-    public void bSaveUnits_depricated(View v){
+    public void bSaveUnitsBin(View v){
         // path is set in putPath in @AfterViews
         for(int i=0; i<UnitsList.getUnitList().size(); i++) {
             saver.saveUnit((HeatingControlUnit)UnitsList.getUnitList().get(i));
             Toast.makeText(this, "Unit with id = " + i + " saved!", Toast.LENGTH_SHORT).show();
         }
         Toast.makeText(this, "All units saved!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Click
+    public void bDeleteUnitsBin(View v){
+        confirmRemoving();
+    }
+
+    private void confirmRemoving() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure?")
+                .setTitle("Delete binary units")
+                .setCancelable(false)
+                .setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int id){
+                                loader.deleteAllBinariesUnits();
+                            }
+                        }
+                ).setNegativeButton("No",
+                new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int id){
+                    }
+                }).show();
     }
 
 }

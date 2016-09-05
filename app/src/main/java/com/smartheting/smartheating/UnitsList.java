@@ -25,6 +25,9 @@ public class UnitsList {
     @Bean LoadUnitBinary mBinaryLoader;
 
     @Bean
+    ConnectionHandler dataHandler = new ConnectionHandler();
+
+    @Bean
     public void setLoader(LoadUnitBinary loader){
         loader.setCurrentFileName("");
         if(MainActivity_.getAppContext()!=null) {
@@ -39,32 +42,35 @@ public class UnitsList {
     temporary method for testing purpose
      */
     void addSampleUnits() {
-        InetAddress a1 = null, a2 = null;
+        sUnitsList.clear();
+        InetAddress a1 = null, a2 = null, a3 = null, a4 = null;
         try {
             a1 = InetAddress.getByName("127.0.0.1");
             a2 = InetAddress.getByName("127.0.0.2");
+            a3 = InetAddress.getByName("127.0.0.3");
+            a4 = InetAddress.getByName("127.0.0.4");
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
         HeatingControlUnit u1 = new HeatingControlUnit(), u2 = new HeatingControlUnit();
-        u1.setName("sample"); u1.setUnitAddress(a1);
-        u2.setName("przyklad"); u2.setUnitAddress(a2);
-        sUnitsList.add(u1);
-        sUnitsList.add(u2);
+        HeatingControlUnit u3 = new HeatingControlUnit(), u4 = new HeatingControlUnit();
+        u1.setName("Living room"); u1.setUnitAddress(a1);
+        u2.setName("Kitchen"); u2.setUnitAddress(a2);
+        u3.setName("Bedroom"); u3.setUnitAddress(a3);
+        u4.setName("My room"); u4.setUnitAddress(a4);
+        sUnitsList.add(u1); sUnitsList.add(u2);
+        sUnitsList.add(u3); sUnitsList.add(u4);
     }
 
     // should return something
     void discoverUnits(){
         boolean readingUnitsReady = false;
+        addSampleUnits();
         if(readingUnitsReady) {
             if (sInetAddresses == null) {
-                //TODO handle null values
-                ConnectionHandler connectionHandler = new ConnectionHandler();
-                while (sInetAddresses == null) {
-                    // probably will have to use as one thread
-                    connectionHandler.requestUnitsAdresses();
-                    connectionHandler.receiveUnitList();
-                }
+//                //TODO handle null values
+//                ConnectionHandler connectionHandler = new ConnectionHandler();
+
             }
         }
     }

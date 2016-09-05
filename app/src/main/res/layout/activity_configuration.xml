@@ -31,4 +31,22 @@
         android:layout_below="@+id/tvCheckConnection"
         android:layout_alignRight="@+id/tvCheckConnection"
         android:layout_alignEnd="@+id/tvCheckConnection" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/discover_units"
+        android:id="@+id/bDiscoverUnitsConfiguration"
+        android:layout_below="@+id/tvStoringUnits"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clear_all_settings"
+        android:id="@+id/bClearAllSettings"
+        android:layout_below="@+id/bDiscoverUnitsConfiguration"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

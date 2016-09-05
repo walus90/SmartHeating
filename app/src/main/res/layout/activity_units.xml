@@ -14,7 +14,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lvUnits"
-        android:layout_gravity="center_horizontal"
         android:clickable="true"
         android:choiceMode="singleChoice" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/tvDiscover"
+        android:text="@string/no_units"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/bDiscover"
+        android:text="@string/discover_units"/>
 </LinearLayout>

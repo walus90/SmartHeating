@@ -5,5 +5,7 @@
         <item name="colorGreen">#00FF00</item>
         <item name="colorBlue">#0000FF</item>
         <item name="colorYellow">#FFFF00</item>
+        <item name="colorPink">#FF69F4</item>
+        <item name="colorBrown">#49311C</item>
     </array>
 </resources>

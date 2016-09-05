@@ -20,9 +20,18 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/save_heating_units"
-        android:id="@+id/bSaveUnits_depricated"
+        android:text="@string/save_units_bin"
+        android:id="@+id/bSaveUnitsBin"
         android:layout_below="@+id/etSaveUnitAddress"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_units_bin"
+        android:id="@+id/bDeleteUnitsBin"
+        android:layout_below="@+id/bSaveUnitsBin"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 </RelativeLayout>

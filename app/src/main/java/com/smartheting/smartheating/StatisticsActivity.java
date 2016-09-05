@@ -43,8 +43,6 @@ public class StatisticsActivity extends AppCompatActivity {
 
     @IntArrayRes(R.array.chart_color)
     int[] colourList;
-    @StringRes(R.string.pref_units_on_chart)
-    String unitsToPrintKey;
 
     @ViewById(R.id.lineChart)
     LineChart chart;
@@ -80,14 +78,13 @@ public class StatisticsActivity extends AppCompatActivity {
         unitsIdToView = new ArrayList<>();
         colorsToView = new ArrayList<>();
         unitsNameToView = new ArrayList<>();
-
         prepareChart();
         chart.invalidate();
     }
 
     private void prepareChart() {
         SharedPreferences sp = getSharedPreferences(ChartOptionsActivity_.PREF_NAME, Context.MODE_PRIVATE);
-        Set<String> namesSet = sp.getStringSet(unitsToPrintKey, null);
+        Set<String> namesSet = sp.getStringSet(ChartOptionsActivity_.PREF_UNITS_ON_CHART, null);
         unitsIdToView.clear();
         unitsNameToView.clear();
         colorsToView.clear();
@@ -114,6 +111,7 @@ public class StatisticsActivity extends AppCompatActivity {
         prepareLegend();
         prepareAxises();
         chart.setData(lineData);
+        chart.setVisibleXRangeMaximum(20f);
     }
 
     private void putDataType(String dataType) {
@@ -125,7 +123,6 @@ public class StatisticsActivity extends AppCompatActivity {
         Legend legend =  chart.getLegend();
         // probably cuts a bit of chart at the bottom
         legend.setPosition(Legend.LegendPosition.ABOVE_CHART_CENTER);
-        legend.setTextSize(12f);
         legend.setForm(Legend.LegendForm.LINE);
         legend.setCustom(colorsToView, unitsNameToView);
     }
@@ -166,10 +163,10 @@ public class StatisticsActivity extends AppCompatActivity {
         //chart.getAxisLeft().setValueFormatter(new DayAxisValueFormatter());
         RealmResults<HeatingData> latestResults = realm.where(HeatingData.class).equalTo("unitId", unitId).findAll();
         ArrayList<Entry> sampleEntries = new ArrayList<>();
-        ArrayList<String> as = new ArrayList<>();
+        //ArrayList<String> as = new ArrayList<>();
         for(int i=0; i<latestResults.size(); i++) {
-            sampleEntries.add(new Entry(latestResults.get(i).getTime().getHours(), new Float(latestResults.get(i).getValue())));
-            as.add(Integer.toString(i));
+            sampleEntries.add(new Entry(i, new Float(latestResults.get(i).getValue())));
+            //as.add(Integer.toString(i));
         }
         LineDataSet sampleData = new LineDataSet(sampleEntries, "Unit " + unitId);
         return sampleData;
@@ -180,10 +177,10 @@ public class StatisticsActivity extends AppCompatActivity {
         //chart.getAxisLeft().setValueFormatter(new DayAxisValueFormatter());
         RealmResults<HumidityData> latestResults = realm.where(HumidityData.class).equalTo("unitId", unitId).findAll();
         ArrayList<Entry> sampleEntries = new ArrayList<>();
-        ArrayList<String> as = new ArrayList<>();
+        //ArrayList<String> as = new ArrayList<>();
         for(int i=0; i<latestResults.size(); i++) {
-            sampleEntries.add(new Entry(latestResults.get(i).getTime().getHours(), new Float(latestResults.get(i).getValue())));
-            as.add(Integer.toString(i));
+            sampleEntries.add(new Entry(i, new Float(latestResults.get(i).getValue())));
+            //as.add(Integer.toString(i));
         }
         LineDataSet sampleData = new LineDataSet(sampleEntries, "Unit " + unitId);
         return sampleData;
@@ -192,10 +189,10 @@ public class StatisticsActivity extends AppCompatActivity {
     private LineDataSet getTargetData(int unitId){
         RealmResults<HeatingData> latestResults = realm.where(HeatingData.class).equalTo("unitId", unitId).findAll();
         ArrayList<Entry> sampleEntries = new ArrayList<>();
-        ArrayList<String> as = new ArrayList<>();
+        //ArrayList<String> as = new ArrayList<>();
         for(int i=0; i<latestResults.size(); i++) {
-            sampleEntries.add(new Entry(latestResults.get(i).getTime().getHours(), new Float(latestResults.get(i).getTargetTemperature())));
-            as.add(Integer.toString(i));
+            sampleEntries.add(new Entry(i, new Float(latestResults.get(i).getTargetTemperature())));
+            //as.add(Integer.toString(i));
         }
         LineDataSet sampleData = new LineDataSet(sampleEntries, "Unit " + unitId + " target");
         return sampleData;

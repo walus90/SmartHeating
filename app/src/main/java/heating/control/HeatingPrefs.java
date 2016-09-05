@@ -3,6 +3,7 @@ package heating.control;
 import com.smartheting.smartheating.R;
 
 import org.androidannotations.annotations.sharedpreferences.DefaultBoolean;
+import org.androidannotations.annotations.sharedpreferences.DefaultLong;
 import org.androidannotations.annotations.sharedpreferences.DefaultString;
 import org.androidannotations.annotations.sharedpreferences.DefaultStringSet;
 import org.androidannotations.annotations.sharedpreferences.SharedPref;
@@ -24,5 +25,8 @@ public interface HeatingPrefs {
 
     @DefaultStringSet(value = {"Celsius", "Fahrenheit"}, keyRes = R.string.pref_chose_scale)
     Set<String> temperatureScale();
+
+    @DefaultLong(value = 0, keyRes = R.string.pref_mils_since_update)
+    long milsSinceUpdate();
 
 }

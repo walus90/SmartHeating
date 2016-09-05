@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,23 +21,22 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.sharedpreferences.Pref;
-import org.mockito.InjectMocks;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import heating.control.ConnectionHandler;
 import heating.control.HeatingPrefs_;
 import heating.control.LoadUnitBinary;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import module.control.IDataHandler;
 import module.control.IUnitLoader;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
 
-    @InjectMocks
-    IDataHandler mockIDataHandler = new ConnectionHandler();
+    @Bean
+    ConnectionHandler dataHandler = new ConnectionHandler();
 
     @Bean(LoadUnitBinary.class)
     IUnitLoader loader;
@@ -59,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
     TextView tvStatistics;
     @ViewById(R.id.tvSettings)
     TextView tvSettings;
+    @ViewById(R.id.bUpdateSystem)
+    Button bUpdateSystem;
+
+    long lastUpdateTime;
+    boolean addOnlySample = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +75,25 @@ public class MainActivity extends AppCompatActivity {
         // Open the Realm for the UI thread.
         //realm = Realm.getInstance(realmConfig);
         realm = Realm.getDefaultInstance();
-        // sample data
         clearDefaultRealm();
+        lastUpdateTime = heatingPrefs.milsSinceUpdate().get();
+        if(lastUpdateTime==0) {
+            // sample data
+            Calendar c =Calendar.getInstance();
+            lastUpdateTime = c.getTimeInMillis();
+            updateHeatingSystemData();
+        }else {
+            updateHeatingSystemData();
+        }
+    }
+
+    // updating data, from recent time, dummy implementation
+    void updateHeatingSystemData(){
+        //dummy function call
+        //dataHandler.sendData(new byte[] {(byte)lastUpdate});
+        // generating sample data
+        //dataHandler.colectData();
+        lastUpdateTime = Calendar.getInstance().getTime().getTime();
         addHeatingData(realm);
         addHumidityData(realm);
     }
@@ -85,8 +107,7 @@ public class MainActivity extends AppCompatActivity {
         mUnitsList.mBinaryLoader.setPathToFiles(pathBin);
         // Check if there are saved units, if no ask user for discovery
         if (mUnitsList.readUnitsFromBinary() == 0) {
-            //askForUnitDiscovery();
-            mUnitsList.addSampleUnits();
+            askForUnitDiscovery();
         }
     }
 
@@ -108,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int id){
                                 mUnitsList.discoverUnits();
+                                updateHeatingSystemData();
                             }
                         }
                 ).setNegativeButton("Later",
@@ -143,6 +165,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(configIntent);
     }
 
+    @Click(R.id.bUpdateSystem)
+    public void bUpdateSystem(View v){
+        updateHeatingSystemData();
+    }
+
     private void clearDefaultRealm(){
         this.realm.executeTransaction(new Realm.Transaction() {
             @Override
@@ -155,8 +182,20 @@ public class MainActivity extends AppCompatActivity {
     public void addHeatingData(Realm realm){
         realm.executeTransaction(new Realm.Transaction(){
             @Override
-            public void execute(Realm realm) {
-                int numberOfSamples = 23;
+            public void execute(Realm realm)
+            {
+                long lastUpdate;
+                if((realm.where(HeatingData.class).count()!=0))
+                    lastUpdate = realm.where(HeatingData.class).maximumDate("date").getTime();
+                else {
+                    //adding sample
+                    lastUpdate = MainActivity.this.lastUpdateTime - (1000l * 3600l * 50l);
+                }
+                long timeDifference = MainActivity.this.lastUpdateTime - lastUpdate;
+                // I assume update every hour
+                int numberOfSamples = (int)timeDifference/(1000*3600);
+                if(numberOfSamples==0)
+                    return;
                 double minimum = 22, maximum = 28;
                 // add sample data for all units
                 for(int j=0; j<mUnitsList.getUnitList().size(); j++) {
@@ -167,7 +206,10 @@ public class MainActivity extends AppCompatActivity {
                         heatingData.setCurrentTemperature(val);
                         heatingData.setTargetTemperature(targetVal);
                         Calendar c = Calendar.getInstance();
-                        c.set(2016, 8, 1, i, 0);
+                        c.set(c.get(Calendar.YEAR),
+                                c.get(Calendar.MONTH),
+                                c.get(Calendar.DAY_OF_MONTH)-i/24,
+                                i%24, 0);
                         heatingData.setDate(c.getTime());
                         heatingData.setUnitId(j);
                         realm.copyToRealm(heatingData);
@@ -181,7 +223,18 @@ public class MainActivity extends AppCompatActivity {
         realm.executeTransaction(new Realm.Transaction(){
             @Override
             public void execute(Realm realm) {
-                int numberOfSamples = 23;
+                long lastUpdate;
+                if(realm.where(HumidityData.class).count()!=0)
+                    lastUpdate = realm.where(HeatingData.class).maximumDate("date").getTime();
+                else {
+                    // just to add sample data
+                    lastUpdate = MainActivity.this.lastUpdateTime - (1000l * 3600l * 50l);
+                }
+                long timeDifference = MainActivity.this.lastUpdateTime - lastUpdate;
+                // I assume update every hour
+                int numberOfSamples = (int)timeDifference/(1000*3600);
+                if(numberOfSamples==0)
+                    return;
                 double minimum = 35, maximum = 60;
                 // add sample data for all units
                 for(int j=0; j<mUnitsList.getUnitList().size(); j++) {
@@ -190,7 +243,10 @@ public class MainActivity extends AppCompatActivity {
                         double val = minimum + Math.random() * (maximum - minimum);
                         humidityData.setCurrentHumidity(val);
                         Calendar c = Calendar.getInstance();
-                        c.set(2016, 8, 1, i, 0);
+                        c.set(c.get(Calendar.YEAR),
+                                c.get(Calendar.MONTH),
+                                c.get(Calendar.DAY_OF_MONTH)-i/24, // 24 hours in day
+                                i%24, 0);
                         humidityData.setDate(c.getTime());
                         humidityData.setUnitId(j);
                         realm.copyToRealm(humidityData);

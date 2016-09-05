@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,6 +30,8 @@ public class UnitsActivity extends Activity {
 
     @ViewById(R.id.lvUnits)
     ListView mUnitsLv;
+    @ViewById TextView tvDiscover;
+    @ViewById Button bDiscover;
 
     static final String UNIT_ID = "unit mId";
     static final String UNIT_NAME = "unit mName";
@@ -45,6 +48,8 @@ public class UnitsActivity extends Activity {
         ArrayList<BaseUnit> units =  UnitsList.getUnitList();
         if(units.isEmpty()){
             l.add("No units found");
+            tvDiscover.setVisibility(View.VISIBLE);
+            bDiscover.setVisibility(View.VISIBLE);
         }else {
             for (BaseUnit u : units) {
                 if (u instanceof HeatingControlUnit)

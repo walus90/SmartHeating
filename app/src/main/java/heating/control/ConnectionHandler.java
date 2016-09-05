@@ -31,7 +31,7 @@ import module.control.IDataHandler;
  * Created by Wojtek on 2016-05-17.
  */
 
-@EBean
+@EBean(scope = EBean.Scope.Singleton)
 public class ConnectionHandler implements IDataHandler {
 
     private Protocol mProtocol;

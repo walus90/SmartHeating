@@ -118,6 +118,7 @@ public class UnitDetailActivity extends AppCompatActivity {
                 }
                 hcu.setName(upvName.getPropertyValue());
                 hcu.setTargetTemperature(targetVal);
+                //update of target value should be sent here
             }
     }
 

@@ -16,7 +16,7 @@
     <string name="enter_ip">Enter ip</string>
     <string name="check_connection">Check connection</string>
     <string name="pref_save_unit_address">Path to save binary units</string>
-    <string name="save_heating_units">Save heating units</string>
+    <string name="save_units_bin">Save units as binaries</string>
     <string name="storing_units">Storing heating units</string>
     <string name="pref_wifi_auto_summary">Connect to WiFi network afrer launch of application</string>
     <string name="pref_connect_auto">Connect to WiFi automatically</string>
@@ -32,4 +32,10 @@
     <string name="pref_chose_scale">Scale of temperature</string>
     <string name="refresh_chart">Refresh</string>
     <string name="pref_data_type_to_show">Data type to show on chart</string>
+    <string name="pref_mils_since_update">Number of milliseconds since last system update</string>
+    <string name="update_system">Update system information</string>
+    <string name="no_units">No units found!</string>
+    <string name="discover_units">Discover units</string>
+    <string name="delete_units_bin">Delete binary units save</string>
+    <string name="clear_all_settings">Clear all settings</string>
 </resources>
