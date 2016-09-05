@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
@@ -57,6 +58,7 @@ public class ConfigurationActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int id){
                                 mUnitsList.discoverUnits();
+                                Toast.makeText(ConfigurationActivity.this, "Attempting to discover units", Toast.LENGTH_SHORT).show();
                             }
                         }
                 ).setNegativeButton("No",
@@ -73,6 +75,7 @@ public class ConfigurationActivity extends AppCompatActivity {
         chartPref.edit().clear().apply();
         SharedPreferences appPref = getSharedPreferences(SettingsActivity_.SETTINGS_NAME, Context.MODE_PRIVATE);
         appPref.edit().clear().apply();
+        Toast.makeText(this, "All settings set to default", Toast.LENGTH_SHORT).show();
     }
 
 }

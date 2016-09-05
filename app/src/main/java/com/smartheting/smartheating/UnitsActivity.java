@@ -14,8 +14,11 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ViewById;
@@ -32,6 +35,9 @@ public class UnitsActivity extends Activity {
     ListView mUnitsLv;
     @ViewById TextView tvDiscover;
     @ViewById Button bDiscover;
+
+    @Bean
+    public UnitsList mUnitsList;
 
     static final String UNIT_ID = "unit mId";
     static final String UNIT_NAME = "unit mName";
@@ -102,6 +108,12 @@ public class UnitsActivity extends Activity {
             default:
                 return super.onContextItemSelected(item);
         }
+    }
+
+    @Click
+    public void bDiscover(View v){
+        mUnitsList.discoverUnits();
+        Toast.makeText(this, "Attempting to discover units", Toast.LENGTH_SHORT).show();
     }
 
 

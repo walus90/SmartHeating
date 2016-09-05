@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
     Button bUpdateSystem;
 
     long lastUpdateTime;
-    boolean addOnlySample = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
     @Click(R.id.bUpdateSystem)
     public void bUpdateSystem(View v){
         updateHeatingSystemData();
+        Toast.makeText(this, "Information about system updated", Toast.LENGTH_SHORT).show();
     }
 
     private void clearDefaultRealm(){

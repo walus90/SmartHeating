@@ -93,6 +93,7 @@ public class SaveUnitsActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int id){
                                 loader.deleteAllBinariesUnits();
+                                Toast.makeText(SaveUnitsActivity.this, "All binary units removed", Toast.LENGTH_SHORT).show();
                             }
                         }
                 ).setNegativeButton("No",
