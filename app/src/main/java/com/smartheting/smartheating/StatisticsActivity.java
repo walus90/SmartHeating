@@ -23,6 +23,7 @@ import com.github.mikephil.charting.utils.Utils;
 import com.smartheating.model.HeatingData;
 import com.smartheating.model.HumidityData;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
@@ -33,6 +34,8 @@ import org.androidannotations.annotations.res.StringRes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import javax.inject.Inject;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -53,7 +56,9 @@ public class StatisticsActivity extends AppCompatActivity {
     @ViewById
     TextView tvDataType;
 
+    @Inject
     Realm realm;
+
     LineData lineData;
     List<ILineDataSet> dataToView;
     ArrayList<Integer> unitsIdToView;
@@ -67,12 +72,17 @@ public class StatisticsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }
 
+    @AfterInject
+    void setDependencies(){
+        ((SmartHeating)getApplication()).getRealmComponent().inject(this);
+        //realm = MainActivity_.realm;
+    }
+
     @AfterViews
     void setChart() {
         SharedPreferences sp = getSharedPreferences(ChartOptionsActivity_.PREF_NAME, Context.MODE_PRIVATE);
         dataType = sp.getString(ChartOptionsActivity_.DATA_TYPE_TO_SHOW, "Temperature");
 
-        realm = Realm.getDefaultInstance();
         Utils.init(this);
         dataToView = new ArrayList<ILineDataSet>();
         unitsIdToView = new ArrayList<>();
@@ -219,6 +229,7 @@ public class StatisticsActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.i(MainActivity.class.getName(), "onDestroy() invoked");
         realm.close(); // Remember to close Realm when done.
     }
 

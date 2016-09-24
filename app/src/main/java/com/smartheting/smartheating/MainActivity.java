@@ -25,6 +25,8 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.inject.Inject;
+
 import heating.control.ConnectionHandler;
 import heating.control.HeatingPrefs_;
 import heating.control.LoadUnitBinary;
@@ -45,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
     public UnitsList mUnitsList;
     static Context context;
 
+    @Inject
     Realm realm;
-    RealmConfiguration realmConfig;
 
     @Pref
     HeatingPrefs_ heatingPrefs;
@@ -68,22 +70,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MainActivity.context = getApplicationContext();
-        // Create the Realm configuration
-        realmConfig = new RealmConfiguration.Builder(this).deleteRealmIfMigrationNeeded().build();
-        Realm.setDefaultConfiguration(realmConfig);
-        // Open the Realm for the UI thread.
-        //realm = Realm.getInstance(realmConfig);
-        realm = Realm.getDefaultInstance();
-        clearDefaultRealm();
-        lastUpdateTime = heatingPrefs.milsSinceUpdate().get();
-        if(lastUpdateTime==0) {
-            // sample data
-            Calendar c =Calendar.getInstance();
-            lastUpdateTime = c.getTimeInMillis();
-            updateHeatingSystemData();
-        }else {
-            updateHeatingSystemData();
-        }
     }
 
     // updating data, from recent time, dummy implementation
@@ -99,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
     @AfterInject
     void loadUnits() {
+        ((SmartHeating) getApplication()).getRealmComponent().inject(this);
         Log.i(MainActivity_.class.getName(), heatingPrefs.pathToBinUnits().get());
         String pathBin = heatingPrefs.pathToBinUnits().get();
         ((LoadUnitBinary)loader).setPathToFiles(pathBin);
@@ -107,6 +94,17 @@ public class MainActivity extends AppCompatActivity {
         // Check if there are saved units, if no ask user for discovery
         if (mUnitsList.readUnitsFromBinary() == 0) {
             askForUnitDiscovery();
+        }
+
+        clearDefaultRealm();
+        lastUpdateTime = heatingPrefs.milsSinceUpdate().get();
+        if(lastUpdateTime==0) {
+            // sample data
+            Calendar c =Calendar.getInstance();
+            lastUpdateTime = c.getTimeInMillis();
+            updateHeatingSystemData();
+        }else {
+            updateHeatingSystemData();
         }
     }
 
@@ -264,6 +262,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.i(MainActivity.class.getName(), "onDestroy() invoked");
         realm.close(); // Remember to close Realm when done.
     }
 

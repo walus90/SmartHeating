@@ -4,6 +4,8 @@ import org.androidannotations.annotations.EBean;
 
 import java.net.InetAddress;
 
+import javax.inject.Inject;
+
 import module.control.BaseUnit;
 
 /**
@@ -20,7 +22,9 @@ public class HeatingControlUnit extends BaseUnit implements java.io.Serializable
     private double mCurrentTemperature;
     private double mTargetTemperature;
     private double mCurrentHumidity;
-    private InetAddress mUnitAddress;
+    @Inject
+    InetAddress mUnitAddress;
+
 
     public InetAddress getUnitAddress() {
         return mUnitAddress;
@@ -38,7 +42,7 @@ public class HeatingControlUnit extends BaseUnit implements java.io.Serializable
 //        this.mName = name;
 //    }
     //public String getName() { return mName; }
-    public void setName(String name) { this.mName = name; };
+    public void setName(String name) { this.mName = name; }
     public int getId() { return mId; }
 
     public boolean isAdvice() {
